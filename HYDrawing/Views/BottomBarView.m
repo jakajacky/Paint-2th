@@ -29,7 +29,7 @@
 //    }
 
     if (!_colorWheelButton) {
-        _colorWheelButton = [[WDColorWell alloc] initWithFrame:CGRectMake(0, 0, 74, 98)];
+        _colorWheelButton = [[WDColorWell alloc] initWithFrame:CGRectMake(0, 0, 37, 49)];
         [_colorWheelButton addTarget:self action:@selector(tapButton:) forControlEvents:UIControlEventTouchUpInside];
         _colorWheelButton.tag = COLORWHEEL_BTN;
 
@@ -200,8 +200,9 @@
     if(self = [super init]) {
         /// add subviews
         UIImageView *backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"bottom_bar"]];
+        backgroundView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 51);
         [self addSubview:backgroundView];
-        self.frame = CGRectMake(0, 0,backgroundView.frame.size.width,backgroundView.frame.size.height);
+        self.frame = CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width,backgroundView.frame.size.height);
         
         self.colorWheelButton.color = color;
         [self addSubview:self.colorWheelButton];
@@ -223,7 +224,7 @@
 
 - (void) addConstrainsForBottomView {
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_colorWheelButton,_eraserButton,_toolsScrollView,_layersButton);
-    NSDictionary *metrics = @{@"hPadding1" :@11,@"hPadding2" :@13,@"vHeight":@98,@"vWidth":@73};
+    NSDictionary *metrics = @{@"hPadding1" :@11,@"hPadding2" :@13,@"vHeight":@49,@"vWidth":@36};
     NSArray *constraints = [NSLayoutConstraint
                             constraintsWithVisualFormat:@"H:|-hPadding1-[_colorWheelButton(vWidth)]-hPadding1-[_eraserButton(vWidth)]-hPadding1-[_toolsScrollView]-hPadding2-[_layersButton(vWidth)]-hPadding2-|"
                             options:0
@@ -264,7 +265,7 @@
 - (void) addConstrainsForScrollView {
     NSArray *keys = [NSArray arrayWithObjects:@"_pencilButton",@"_markerPenButton",@"_colorBrushButton",@"_crayonButton",@"_bucketButton",@"_shapeboxButton",@"_eyedropperButton",@"_canvasButton",@"_clipButton",nil];
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_pencilButton,_markerPenButton,_colorBrushButton,_crayonButton,_bucketButton,_shapeboxButton,_eyedropperButton,_canvasButton,_clipButton);
-    NSDictionary *metrics = @{@"hPadding" :@7,@"vPadding" :@5,@"vHeight":@98,@"vWidth":@73};
+    NSDictionary *metrics = @{@"hPadding" :@7,@"vPadding" :@5,@"vHeight":@49,@"vWidth":@36};
     NSArray *constraints = [[NSArray alloc]init];
     NSString *lastCmpObj = @"|";
     

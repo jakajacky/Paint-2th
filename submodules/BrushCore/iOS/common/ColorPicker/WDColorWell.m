@@ -53,7 +53,7 @@ const float kWDColorWellShadowOpacity = 0.8f;
     //float inset = phoneLandscapeMode ? 11 : 8;
     //float cornerRadius = phoneLandscapeMode ? 3 : 5;
     
-    CGRect box = CGRectInset(self.bounds, 3, 15);
+    CGRect box = CGRectInset(CGRectMake(0, 0, 36, 50), 3, 10); // 构造一个带偏移量的圆形
     
     self.shape = [UIBezierPath bezierPathWithOvalInRect:box];
     self.shape.lineWidth = 5;

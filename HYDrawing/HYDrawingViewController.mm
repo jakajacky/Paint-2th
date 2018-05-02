@@ -135,17 +135,25 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate>
      */
     self.navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
     
+    /**
+     * Mioto迁移不需要的item
+     
     // close
     UIBarButtonItem *closeItem = [[UIBarButtonItem alloc]initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(closeBrush:)];
-    // close
+    // load
     UIBarButtonItem *loadItem = [[UIBarButtonItem alloc]initWithTitle:@"Load" style:UIBarButtonItemStylePlain target:self action:@selector(loadBrush:)];
+    */
     
     // Painting List
     UIBarButtonItem *listItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStylePlain target:self action:@selector(showPaintingList:)];
 	
+    /**
+     * Mioto迁移不需要的item
 	// 图片资源
 	UIBarButtonItem *resourceItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"nav_button_resource"] style:UIBarButtonItemStylePlain target:self action:@selector(toResourcePicturesVC)];
-	self.navigationItem.leftBarButtonItems = @[closeItem,loadItem,listItem, resourceItem];
+    */
+    
+	self.navigationItem.leftBarButtonItems = @[listItem];
     
     // undo & redo
     undoItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"undo_n"] style:UIBarButtonItemStylePlain target:self action:@selector(undo:)];
@@ -155,20 +163,23 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate>
     undoItem.enabled = NO;
     redoItem.enabled = NO;
     
+    /**
+     * Mioto迁移不需要的item
     // 视频
     videoItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"video"] style:UIBarButtonItemStylePlain target:self action:@selector(tapVideo:)];
-	
+	*/
 	// 操作
     settingItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"setting"] style:UIBarButtonItemStylePlain target:self action:@selector(showSetting:)];
-    
+    /**
+     * Mioto迁移不需要的item
     // 图片
     pictureItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"picture"] style:UIBarButtonItemStylePlain target:self action:@selector(showPhotoBrowser:)];
     
     // 分享
     shareItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action: nil];
+    */
     
-    
-    self.navigationItem.rightBarButtonItems = @[shareItem,pictureItem,settingItem,videoItem,redoItem, undoItem];
+    self.navigationItem.rightBarButtonItems = @[settingItem,redoItem, undoItem];
     
     self.view.opaque = YES;
     self.view.backgroundColor = [UIColor colorWithWhite:0.2 alpha:1];
@@ -228,7 +239,7 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate>
     activeButton = (BottomBarButtonType) bottomBarView.currentButton.tag;
     
     // brush size pannel
-    brushSizePannelView = [[BrushSizePannelView alloc] initWithFrame:CGRectMake(-132, 450, 346, 58)];
+    brushSizePannelView = [[BrushSizePannelView alloc] initWithFrame:CGRectMake(-132, [UIScreen mainScreen].bounds.size.height/2.0, 346, 58)];
     brushSizePannelView.delegate = self;
     [self.view addSubview:brushSizePannelView];
     [brushSizePannelView setBrushSize:[[HYBrushCore sharedInstance]getActiveBrushSize]];
@@ -856,7 +867,7 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate>
     subview.translatesAutoresizingMaskIntoConstraints = NO;
     float padding = (superview.frame.size.width - subview.frame.size.width) /2.f;
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(subview);
-    NSDictionary *metrics = @{@"vHeight":@(103),@"hPadding":@(padding)};
+    NSDictionary *metrics = @{@"vHeight":@(51),@"hPadding":@(padding)};
     
     NSArray *constraints = [NSLayoutConstraint
                             constraintsWithVisualFormat:@"H:|-hPadding-[subview]-hPadding-|"
