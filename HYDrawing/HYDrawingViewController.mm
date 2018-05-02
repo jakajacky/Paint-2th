@@ -573,46 +573,48 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentation
 -(void)showShapeBoxPopoverController:(UIButton*)sender{
     UIImage *image = [UIImage imageNamed:@"shapebox_img_bg"];
     if (!_shapeBoxController) {
-        _shapeBoxController = [[ZXHShapeBoxController alloc]initWithPreferredContentSize:image.size];
+        _shapeBoxController = [[ZXHShapeBoxController alloc]initWithPreferredContentSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-20, image.size.height)];
         _shapeBoxController.delegate = self;
+        _shapeBoxController.modalPresentationStyle = UIModalPresentationPopover;
     }
     
-    if (!_shapeBoxPopoverController) {
-        _shapeBoxPopoverController = [[UIPopoverController alloc]initWithContentViewController:_shapeBoxController];
-    }
-    
-    _shapeBoxPopoverController.popoverBackgroundViewClass =[DDPopoverBackgroundView class];
-    [DDPopoverBackgroundView setContentInset:0];
-    [DDPopoverBackgroundView setBackgroundImage:[UIImage new]];
-    [DDPopoverBackgroundView setBackgroundImageCornerRadius:4];
-    
+    UIPopoverPresentationController *pop =_shapeBoxController.popoverPresentationController;
     // 弹出位置
     CGRect popRect = sender.frame;
     popRect.origin.x += popRect.size.width;
+    pop.delegate = self;
+    pop.sourceView = sender;
+    pop.sourceRect = sender.bounds;
+//    pop.popoverBackgroundViewClass = [DDPopoverBackgroundView class];
+//    [DDPopoverBackgroundView setContentInset:0];
+//    [DDPopoverBackgroundView setBackgroundImage:[UIImage new]];
+//    [DDPopoverBackgroundView setBackgroundImageCornerRadius:4];
     
-    [_shapeBoxPopoverController presentPopoverFromRect:popRect inView:bottomBarView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    [self presentViewController:_shapeBoxController animated:YES completion:^{
+        
+    }];
 }
 
 - (void)showCanvasBackgroundPopoverController:(UIButton*)sender {
     UIImage *image = [UIImage imageNamed:@"canvasBg_bg"];
     if (!_canvasBackgroundController) {
-        _canvasBackgroundController = [[ZXHCanvasBackgroundController alloc]initWithPreferredContentSize:CGSizeMake(image.size.width, image.size.height)];
+        _canvasBackgroundController = [[ZXHCanvasBackgroundController alloc]initWithPreferredContentSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, image.size.height)];
+        _canvasBackgroundController.modalPresentationStyle = UIModalPresentationPopover;
     }
     
-    if (!_canvasBgPopoverController) {
-        _canvasBgPopoverController = [[UIPopoverController alloc]initWithContentViewController:_canvasBackgroundController];
-    }
     
-    _canvasBgPopoverController.popoverBackgroundViewClass =[DDPopoverBackgroundView class];
-    [DDPopoverBackgroundView setContentInset:0];
-    //
-    [DDPopoverBackgroundView setBackgroundImage:image];
+    UIPopoverPresentationController *pop = _canvasBackgroundController.popoverPresentationController;
+    pop.delegate = self;
     
     // 弹出位置
     CGRect popRect = sender.frame;
     popRect.origin.x -= popRect.size.width;
+    pop.sourceView = sender;
+    pop.sourceRect = sender.bounds;
     
-    [_canvasBgPopoverController presentPopoverFromRect:popRect inView:bottomBarView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    [self presentViewController:_canvasBackgroundController animated:YES completion:^{
+        
+    }];
 }
 
 -(void)showCliperView {

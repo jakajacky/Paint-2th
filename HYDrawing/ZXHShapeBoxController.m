@@ -88,12 +88,12 @@
 -(void)changeDataSource:(UIButton*)btn{
     [self.view setNeedsDisplay];
     if (btn == imgBtn) {
-        self.view.backgroundColor = kImageColor(@"shapebox_img_bg");
+//        self.view.backgroundColor = kImageColor(@"shapebox_img_bg");
         _dataSource = _pictureData;
         imgBtn.userInteractionEnabled = NO;
         shapeBtn.userInteractionEnabled = YES;
     }else{
-        self.view.backgroundColor = kImageColor(@"shapebox_shape_bg");
+//        self.view.backgroundColor = kImageColor(@"shapebox_shape_bg");
         _dataSource = _shapeData;
         imgBtn.userInteractionEnabled = YES;
         shapeBtn.userInteractionEnabled = NO;
