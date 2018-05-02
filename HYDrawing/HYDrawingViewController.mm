@@ -36,7 +36,7 @@ extern NSString *LayersOperation;
 
 @interface HYDrawingViewController ()<
 BottomBarViewDelegate,UIPopoverControllerDelegate,WDColorPickerControllerDelegate,CanvasViewDelegate, BrushSizePannelViewDelegate, PaintingListControllerDelegate,
-SettingViewControllerDelegate, ResourceImageSelectDelegate>
+SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentationControllerDelegate>
 {
     UIPopoverController *popoverController;
     BottomBarView *bottomBarView;
@@ -325,33 +325,75 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate>
     
     UIImage *image = [UIImage imageNamed:@"list_popover_bg"];
     
-    if (!_listPopoverController) {
-        
+//    if (!_listPopoverController) {
+    
         ZXHPaintingListController *listVC = [[ZXHPaintingListController alloc]init];
         listVC.delegate = self;
+//    listVC.view.backgroundColor = [UIColor yellowColor];
         listVC.preferredContentSize = CGSizeMake(image.size.width, image.size.height-10);
-        _listPopoverController = [[UIPopoverController alloc]initWithContentViewController:listVC];
-    }
+//        _listPopoverController = [[UIPopoverController alloc]initWithContentViewController:listVC];
+//    }
     
-    _listPopoverController.popoverBackgroundViewClass =[DDPopoverBackgroundView class];
-    [DDPopoverBackgroundView setContentInset:0];
-    [DDPopoverBackgroundView setBackgroundImage:image];
-    [DDPopoverBackgroundView setBackgroundImageCornerRadius:4];
+//    _listPopoverController.popoverBackgroundViewClass =[DDPopoverBackgroundView class];
+//    [DDPopoverBackgroundView setContentInset:0];
+//    [DDPopoverBackgroundView setBackgroundImage:image];
+//    [DDPopoverBackgroundView setBackgroundImageCornerRadius:4];
+    
+    UIPopoverPresentationController *popController = [listVC popoverPresentationController];
+    popController.delegate = self;
+    popoverController.backgroundColor = [UIColor yellowColor];
+//    popController.popoverBackgroundViewClass = [DDPopoverBackgroundView class];
+//    [DDPopoverBackgroundView setContentInset:0];
+//    [DDPopoverBackgroundView setBackgroundImage:image];
+//    [DDPopoverBackgroundView setBackgroundImageCornerRadius:4];
+    
+    popController.barButtonItem = sender;
+    listVC.modalPresentationStyle = UIModalPresentationPopover;
+    listVC.preferredContentSize = CGSizeMake(image.size.width, image.size.height-10);
     
     // 弹出
-    [_listPopoverController presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    [self presentViewController:listVC animated:YES completion:^{
+        
+    }];
+//    [_listPopoverController presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     
     [(ZXHPaintingListController*)_listPopoverController.contentViewController refreshData];
 }
 
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
+    return UIModalPresentationNone;
+}
+
+-(BOOL)popoverPresentationControllerShouldDismissPopover:(UIPopoverPresentationController *)popoverPresentationController{
+    return YES;
+}
+
+//弹框消失时调用的方法
+-(void)popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverPresentationController{
+    
+    NSLog(@"弹框已经消失");
+    
+}
 
 - (void)tapVideo:(id)sender{
     
 }
 
 -(void)showSetting:(UIBarButtonItem*)sender{
-    
+    /**
+     * 废弃PopoverController
     [self.settingPopoverController presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+     */
+    SettingViewController *settingCtrl =  [[SettingViewController alloc]init];
+    settingCtrl.delegate = self;
+    settingCtrl.preferredContentSize = CGSizeMake(100, 100);
+    settingCtrl.modalPresentationStyle = UIModalPresentationPopover;
+    
+    UIPopoverPresentationController *pop = settingCtrl.popoverPresentationController;
+    pop.barButtonItem = sender;
+    pop.delegate = self;
+    
+    [self presentViewController:settingCtrl animated:YES completion:nil];
 }
 
 - (void)showPhotoBrowser:(UIBarButtonItem*) sender {
