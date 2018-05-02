@@ -323,7 +323,7 @@ static void release(void *info) {
 
 - (float) indicatorCenterX_
 {
-    CGRect  trackRect = CGRectInset(self.bounds, kIndicatorInset, 0);
+    CGRect  trackRect = CGRectInset(CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width-60, 16), kIndicatorInset, 0);
     
     return roundf(value_ * CGRectGetWidth(trackRect) + CGRectGetMinX(trackRect));
 }
