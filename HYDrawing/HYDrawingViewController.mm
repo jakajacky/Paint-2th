@@ -546,7 +546,7 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentation
             [self showLayerPopoverController:button];
             break;
         case CLIP_BTN:              ///< 裁减
-            //            [self showCliperView];
+                        [self showCliperView];
             break;
         case CANVAS_BTN:            ///< 背景图
             [self showCanvasBackgroundPopoverController:button];

@@ -182,7 +182,7 @@
         [_toolsScrollView addSubview:self.shapeboxButton];
         [_toolsScrollView addSubview:self.eyedropperButton];
         [_toolsScrollView addSubview:self.canvasButton];
-        [_toolsScrollView addSubview:self.clipButton];
+//        [_toolsScrollView addSubview:self.clipButton];
 
         [self addConstrainsForScrollView];
         
@@ -263,8 +263,8 @@
 }
 
 - (void) addConstrainsForScrollView {
-    NSArray *keys = [NSArray arrayWithObjects:@"_pencilButton",@"_markerPenButton",@"_colorBrushButton",@"_crayonButton",@"_bucketButton",@"_shapeboxButton",@"_eyedropperButton",@"_canvasButton",@"_clipButton",nil];
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_pencilButton,_markerPenButton,_colorBrushButton,_crayonButton,_bucketButton,_shapeboxButton,_eyedropperButton,_canvasButton,_clipButton);
+    NSArray *keys = [NSArray arrayWithObjects:@"_pencilButton",@"_markerPenButton",@"_colorBrushButton",@"_crayonButton",@"_bucketButton",@"_shapeboxButton",@"_eyedropperButton",@"_canvasButton",nil];
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_pencilButton,_markerPenButton,_colorBrushButton,_crayonButton,_bucketButton,_shapeboxButton,_eyedropperButton,_canvasButton);
     NSDictionary *metrics = @{@"hPadding" :@7,@"vPadding" :@5,@"vHeight":@49,@"vWidth":@36};
     NSArray *constraints = [[NSArray alloc]init];
     NSString *lastCmpObj = @"|";
