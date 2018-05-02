@@ -39,6 +39,7 @@ BottomBarViewDelegate,UIPopoverControllerDelegate,WDColorPickerControllerDelegat
 SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentationControllerDelegate>
 {
     UIPopoverController *popoverController;
+    UIPopoverPresentationController *popoverPController;
     BottomBarView *bottomBarView;
     BrushSizePannelView *brushSizePannelView;
     UIPopoverController *layersPopoverController;
@@ -564,7 +565,8 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentation
         [self hidePopovers];
         return;
     }
-    
+    self.colorPickerController.preferredContentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width-20, [UIScreen mainScreen].bounds.size.height*2/3.0);
+    self.colorPickerController.modalPresentationStyle = UIModalPresentationPopover;
     [self showController:self.colorPickerController fromBarButtonItem:sender animated:NO];
 }
 
@@ -1062,31 +1064,28 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentation
     [self runPopoverWithController:controller from:barButton];
 }
 
-- (UIPopoverController *) runPopoverWithController:(UIViewController *)controller from:(id)sender
+- (UIPopoverPresentationController *)runPopoverWithController:(UIViewController *)controller from:(id)sender
 {
     [self hidePopovers];
     
-    popoverController = [[UIPopoverController alloc] initWithContentViewController:controller];
-    popoverController.delegate = self;
-    
-    //    NSMutableArray *passthroughs = [NSMutableArray arrayWithObjects:self.topBar, self.bottomBar, nil];
-    //    if (self.isEditing) {
-    //        [passthroughs addObject:self.canvas];
-    //    }
-    //    popoverController.passthroughViews = passthroughs;
-    //
+    UIPopoverPresentationController *popP = controller.popoverPresentationController;
     if ([sender isKindOfClass:[UIBarButtonItem class]]) {
-        [popoverController presentPopoverFromBarButtonItem:sender
-                                   permittedArrowDirections:UIPopoverArrowDirectionAny
-                                                   animated:YES];
+        popP.delegate = self;
+        popP.barButtonItem = sender;
+        [self presentViewController:controller animated:YES completion:^{
+            
+        }];
     } else {
-        [popoverController presentPopoverFromRect:CGRectInset(((UIView *) sender).bounds, 10, 10)
-                                            inView:sender
-                          permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown)
-                                          animated:YES];
+        UIView *source = (UIView *)sender;
+        popP.delegate = self;
+        popP.sourceView = source;
+        popP.sourceRect = source.bounds;
+        [self presentViewController:controller animated:YES completion:^{
+            
+        }];
     }
     
-    return popoverController;
+    return popoverPController;
 }
 
 - (BOOL) popoverVisible
