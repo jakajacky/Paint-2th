@@ -179,7 +179,7 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentation
     shareItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action: nil];
     */
     
-    self.navigationItem.rightBarButtonItems = @[settingItem,redoItem, undoItem];
+    self.navigationItem.rightBarButtonItems = @[redoItem,undoItem,settingItem];
     
     self.view.opaque = YES;
     self.view.backgroundColor = [UIColor colorWithWhite:0.2 alpha:1];
@@ -322,40 +322,27 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentation
 }
 
 -(void)showPaintingList:(UIBarButtonItem*)sender {
-    
     UIImage *image = [UIImage imageNamed:@"list_popover_bg"];
-    
-//    if (!_listPopoverController) {
-    
-        ZXHPaintingListController *listVC = [[ZXHPaintingListController alloc]init];
-        listVC.delegate = self;
-//    listVC.view.backgroundColor = [UIColor yellowColor];
-        listVC.preferredContentSize = CGSizeMake(image.size.width, image.size.height-10);
-//        _listPopoverController = [[UIPopoverController alloc]initWithContentViewController:listVC];
-//    }
-    
-//    _listPopoverController.popoverBackgroundViewClass =[DDPopoverBackgroundView class];
-//    [DDPopoverBackgroundView setContentInset:0];
-//    [DDPopoverBackgroundView setBackgroundImage:image];
-//    [DDPopoverBackgroundView setBackgroundImageCornerRadius:4];
+
+    ZXHPaintingListController *listVC = [[ZXHPaintingListController alloc]init];
+    listVC.delegate = self;
+    listVC.modalPresentationStyle = UIModalPresentationPopover;
+    listVC.preferredContentSize = CGSizeMake(image.size.width, image.size.height-50);
     
     UIPopoverPresentationController *popController = [listVC popoverPresentationController];
     popController.delegate = self;
     popoverController.backgroundColor = [UIColor yellowColor];
-//    popController.popoverBackgroundViewClass = [DDPopoverBackgroundView class];
-//    [DDPopoverBackgroundView setContentInset:0];
-//    [DDPopoverBackgroundView setBackgroundImage:image];
-//    [DDPopoverBackgroundView setBackgroundImageCornerRadius:4];
+    popController.popoverBackgroundViewClass = [DDPopoverBackgroundView class];
+    [DDPopoverBackgroundView setContentInset:0];
+    [DDPopoverBackgroundView setBackgroundImage:image];
+    [DDPopoverBackgroundView setBackgroundImageCornerRadius:4];
     
     popController.barButtonItem = sender;
-    listVC.modalPresentationStyle = UIModalPresentationPopover;
-    listVC.preferredContentSize = CGSizeMake(image.size.width, image.size.height-10);
     
     // 弹出
     [self presentViewController:listVC animated:YES completion:^{
         
     }];
-//    [_listPopoverController presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     
     [(ZXHPaintingListController*)_listPopoverController.contentViewController refreshData];
 }
@@ -391,6 +378,7 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentation
     
     UIPopoverPresentationController *pop = settingCtrl.popoverPresentationController;
     pop.barButtonItem = sender;
+    pop.backgroundColor = kBorderColor;
     pop.delegate = self;
     
     [self presentViewController:settingCtrl animated:YES completion:nil];
