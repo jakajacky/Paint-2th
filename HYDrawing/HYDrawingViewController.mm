@@ -623,30 +623,34 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentation
 }
 
 -(void)showLayerPopoverController:(UIButton*)sender {
+    UIImage *image = [UIImage imageNamed:@"layers_popover_bg"];
     if (!_layersViewController) {
         _layersViewController = [ZXHLayersViewController new];
+        _layersViewController.preferredContentSize = CGSizeMake(image.size.width, image.size.height-30);
+        _layersViewController.modalPresentationStyle = UIModalPresentationPopover;
     }
     
-    if (!layersPopoverController) {
-        layersPopoverController = [[UIPopoverController alloc]initWithContentViewController:_layersViewController];
-    }
     
-    layersPopoverController.popoverBackgroundViewClass =[DDPopoverBackgroundView class];
+    
+    UIPopoverPresentationController *pop = _layersViewController.popoverPresentationController;
+    pop.delegate = self;
+    pop.popoverBackgroundViewClass = [DDPopoverBackgroundView class];
     [DDPopoverBackgroundView setContentInset:2];
-    
-    UIImage *image = [UIImage imageNamed:@"layers_popover_bg"];
     [DDPopoverBackgroundView setBackgroundImage:image];
     [DDPopoverBackgroundView setBackgroundImageCornerRadius:1.f];
     [DDPopoverBackgroundView setArrowBase:0];
     [DDPopoverBackgroundView setArrowHeight:2];
-    [layersPopoverController setPopoverContentSize:CGSizeMake(image.size.width, image.size.height-30)];
     
     // 弹出位置
     CGRect popRect = sender.frame;
-    popRect.origin.x -= (image.size.width/2.f);
-    popRect.origin.y -= 10;
+    popRect.origin.x -= (image.size.width+70);
+    popRect.origin.y -= 30;
+    pop.sourceView = sender;
+    pop.sourceRect = popRect;
     
-    [layersPopoverController presentPopoverFromRect:popRect inView:bottomBarView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self presentViewController:_layersViewController animated:YES completion:^{
+        
+    }];
     
     [_layersViewController addObserver:self forKeyPath:@"layersCount" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
 }
