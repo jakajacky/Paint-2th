@@ -26,6 +26,16 @@ static string CZLockedKey = "locked";
 static string CZOpacityKey = "opacity";
 static string CZImageDataKey = "layerImage";
 
+CZPaintingFragment::CZPaintingFragment(const CZPaintingFragment &other) {
+    data = new CZImage();
+    bounds = CZRect();
+    data = (*other.data).copy();
+    bounds.size.width = other.bounds.size.width;
+    bounds.size.height = other.bounds.size.height;
+    bounds.origin.x = other.bounds.origin.x;
+    bounds.origin.y = other.bounds.origin.y;
+}
+
 CZLayer::CZLayer(CZPainting* paiting_) : ptrPainting(paiting_)
 {
     visible = true;
@@ -55,7 +65,10 @@ CZLayer::CZLayer(CZPainting* paiting_) : ptrPainting(paiting_)
     
     uuid = CZUtil::generateUUID();
     
-    undoFragment = redoFragment = NULL;
+    undoFragment = undoFragment_1 = undoFragment_2 = undoFragment_3 = undoFragment_4 = undoFragment_5 = undoFragment_6 = undoFragment_7 = undoFragment_8 = undoFragment_9 = NULL;
+    redoFragment = redoFragment_1 = redoFragment_2 = redoFragment_3 = redoFragment_4 = redoFragment_5 = redoFragment_6 = redoFragment_7 = redoFragment_8 = redoFragment_9 = NULL;
+    undo_ind = 0;
+    redo_ind = 0;
     
     canRedo = canUndo = false;
 }
@@ -71,7 +84,27 @@ CZLayer::~CZLayer()
     if(uuid)	{	delete []uuid; uuid = NULL;	}
     clearThumbnailImage();
     if (undoFragment) { delete undoFragment; undoFragment = NULL; }
-    if (redoFragment) { delete redoFragment; redoFragment = NULL; } 
+    if (undoFragment_1) { delete undoFragment_1; undoFragment_1 = NULL; }
+    if (undoFragment_2) { delete undoFragment_2; undoFragment_2 = NULL; }
+    if (undoFragment_3) { delete undoFragment_3; undoFragment_3 = NULL; }
+    if (undoFragment_4) { delete undoFragment_4; undoFragment_4 = NULL; }
+    if (undoFragment_5) { delete undoFragment_5; undoFragment_5 = NULL; }
+    if (undoFragment_6) { delete undoFragment_6; undoFragment_6 = NULL; }
+    if (undoFragment_7) { delete undoFragment_7; undoFragment_7 = NULL; }
+    if (undoFragment_8) { delete undoFragment_8; undoFragment_8 = NULL; }
+    if (undoFragment_9) { delete undoFragment_9; undoFragment_9 = NULL; }
+    if (redoFragment) { delete redoFragment; redoFragment = NULL; }
+    if (redoFragment_1) { delete redoFragment_1; redoFragment_1 = NULL; }
+    if (redoFragment_2) { delete redoFragment_2; redoFragment_2 = NULL; }
+    if (redoFragment_3) { delete redoFragment_3; redoFragment_3 = NULL; }
+    if (redoFragment_4) { delete redoFragment_4; redoFragment_4 = NULL; }
+    if (redoFragment_5) { delete redoFragment_5; redoFragment_5 = NULL; }
+    if (redoFragment_6) { delete redoFragment_6; redoFragment_6 = NULL; }
+    if (redoFragment_7) { delete redoFragment_7; redoFragment_7 = NULL; }
+    if (redoFragment_8) { delete redoFragment_8; redoFragment_8 = NULL; }
+    if (redoFragment_9) { delete redoFragment_9; redoFragment_9 = NULL; }
+    undo_ind = 0;
+    redo_ind = 0;
 }
 
 /// 图层的图像数据
@@ -880,12 +913,13 @@ bool CZLayer::setImage(CZImage *img)
 /// 撤销操作
 bool CZLayer::undoAction()
 {
-    if (canUndo && undoFragment)
+    if (canUndo && undoFragment && undo_ind==0)
     {
         /// save redo PaintingFragment
         if (redoFragment) delete redoFragment;
         CZImage *currentImg = imageDataInRect(undoFragment->bounds);
-        redoFragment = new CZPaintingFragment(currentImg,undoFragment->bounds);
+        redoFragment = new CZPaintingFragment(*undoFragment);
+        redoFragment->data = currentImg;
         canRedo = true;
         
         /// take undo action
@@ -893,28 +927,333 @@ bool CZLayer::undoAction()
         GLint yoffset = (GLint)undoFragment->bounds.getMinY();
         
         myTexture->modifyWith(undoFragment->data,xoffset,yoffset);
-        canUndo = false;
+        canUndo = true;
+//        undoFragment = NULL;
+        if (!undoFragment_1) {
+            redo_ind = undo_ind;
+            undo_ind=0;
+            return false;
+        }
     }
-    else return false;
-    
+    else if (canUndo && undoFragment_1 && undo_ind==1) {
+        /// save redo PaintingFragment
+        if (redoFragment_1) delete redoFragment_1;
+        CZImage *currentImg = imageDataInRect(undoFragment_1->bounds);
+        redoFragment_1 = new CZPaintingFragment(*undoFragment_1);
+        redoFragment_1->data = currentImg;
+        canRedo = true;
+        
+        /// take undo action
+        GLint xoffset = (GLint)undoFragment_1->bounds.getMinX();
+        GLint yoffset = (GLint)undoFragment_1->bounds.getMinY();
+        
+        myTexture->modifyWith(undoFragment_1->data,xoffset,yoffset);
+        canUndo = true;
+//        undoFragment_1 = NULL;
+        if (!undoFragment_2) {
+            redo_ind = undo_ind;
+            undo_ind=0;
+            return false;
+        }
+    }
+    else if (canUndo && undoFragment_2 && undo_ind==2) {
+        /// save redo PaintingFragment
+        if (redoFragment_2) delete redoFragment_2;
+        CZImage *currentImg = imageDataInRect(undoFragment_2->bounds);
+        redoFragment_2 = new CZPaintingFragment(*undoFragment_2);
+        redoFragment_2->data = currentImg;
+        canRedo = true;
+        
+        /// take undo action
+        GLint xoffset = (GLint)undoFragment_2->bounds.getMinX();
+        GLint yoffset = (GLint)undoFragment_2->bounds.getMinY();
+        
+        myTexture->modifyWith(undoFragment_2->data,xoffset,yoffset);
+        canUndo = true;
+//        undoFragment_2 = NULL;
+        if (!undoFragment_3) {
+            redo_ind = undo_ind;
+            undo_ind=0;
+            return false;
+        }
+    }
+    else if (canUndo && undoFragment_3 && undo_ind==3) {
+        /// save redo PaintingFragment
+        if (redoFragment_3) delete redoFragment_3;
+        CZImage *currentImg = imageDataInRect(undoFragment_3->bounds);
+        redoFragment_3 = new CZPaintingFragment(*undoFragment_3);
+        redoFragment_3->data = currentImg;
+        canRedo = true;
+        
+        /// take undo action
+        GLint xoffset = (GLint)undoFragment_3->bounds.getMinX();
+        GLint yoffset = (GLint)undoFragment_3->bounds.getMinY();
+        
+        myTexture->modifyWith(undoFragment_3->data,xoffset,yoffset);
+        canUndo = true;
+//        undoFragment_3 = NULL;
+        if (!undoFragment_4) {
+            redo_ind = undo_ind;
+            undo_ind=0;
+            return false;
+        }
+    }
+    else if (canUndo && undoFragment_4 && undo_ind==4) {
+        /// save redo PaintingFragment
+        if (redoFragment_4) delete redoFragment_4;
+        CZImage *currentImg = imageDataInRect(undoFragment_4->bounds);
+        redoFragment_4 = new CZPaintingFragment(*undoFragment_4);
+        redoFragment_4->data = currentImg;
+        canRedo = true;
+        
+        /// take undo action
+        GLint xoffset = (GLint)undoFragment_4->bounds.getMinX();
+        GLint yoffset = (GLint)undoFragment_4->bounds.getMinY();
+        
+        myTexture->modifyWith(undoFragment_4->data,xoffset,yoffset);
+        canUndo = true;
+//        undoFragment_4 = NULL;
+        if (!undoFragment_5) {
+            redo_ind = undo_ind;
+            undo_ind=0;
+            return false;
+        }
+    }
+    else if (canUndo && undoFragment_5 && undo_ind==5) {
+        /// save redo PaintingFragment
+        if (redoFragment_5) delete redoFragment_5;
+        CZImage *currentImg = imageDataInRect(undoFragment_5->bounds);
+        redoFragment_5 = new CZPaintingFragment(*undoFragment_5);
+        redoFragment_5->data = currentImg;
+        canRedo = true;
+        
+        /// take undo action
+        GLint xoffset = (GLint)undoFragment_5->bounds.getMinX();
+        GLint yoffset = (GLint)undoFragment_5->bounds.getMinY();
+        
+        myTexture->modifyWith(undoFragment_5->data,xoffset,yoffset);
+        canUndo = true;
+//        undoFragment_5 = NULL;
+        if (!undoFragment_6) {
+            redo_ind = undo_ind;
+            undo_ind=0;
+            return false;
+        }
+    }
+    else if (canUndo && undoFragment_6 && undo_ind==6) {
+        /// save redo PaintingFragment
+        if (redoFragment_6) delete redoFragment_6;
+        CZImage *currentImg = imageDataInRect(undoFragment_6->bounds);
+        redoFragment_6 = new CZPaintingFragment(*undoFragment_6);
+        redoFragment_6->data = currentImg;
+        canRedo = true;
+        
+        /// take undo action
+        GLint xoffset = (GLint)undoFragment_6->bounds.getMinX();
+        GLint yoffset = (GLint)undoFragment_6->bounds.getMinY();
+        
+        myTexture->modifyWith(undoFragment_6->data,xoffset,yoffset);
+        canUndo = true;
+//        undoFragment_6 = NULL;
+        if (!undoFragment_7) {
+            redo_ind = undo_ind;
+            undo_ind=0;
+            return false;
+        }
+    }
+    else if (canUndo && undoFragment_7 && undo_ind==7) {
+        /// save redo PaintingFragment
+        if (redoFragment_7) delete redoFragment_7;
+        CZImage *currentImg = imageDataInRect(undoFragment_7->bounds);
+        redoFragment_7 = new CZPaintingFragment(*undoFragment_7);
+        redoFragment_7->data = currentImg;
+        canRedo = true;
+        
+        /// take undo action
+        GLint xoffset = (GLint)undoFragment_7->bounds.getMinX();
+        GLint yoffset = (GLint)undoFragment_7->bounds.getMinY();
+        
+        myTexture->modifyWith(undoFragment_7->data,xoffset,yoffset);
+        canUndo = true;
+//        undoFragment_7 = NULL;
+        if (!undoFragment_8) {
+            redo_ind = undo_ind;
+            undo_ind=0;
+            return false;
+        }
+    }
+    else if (canUndo && undoFragment_8 && undo_ind==8) {
+        /// save redo PaintingFragment
+        if (redoFragment_8) delete redoFragment_8;
+        CZImage *currentImg = imageDataInRect(undoFragment_8->bounds);
+        redoFragment_8 = new CZPaintingFragment(*undoFragment_8);
+        redoFragment_8->data = currentImg;
+        canRedo = true;
+        
+        /// take undo action
+        GLint xoffset = (GLint)undoFragment_8->bounds.getMinX();
+        GLint yoffset = (GLint)undoFragment_8->bounds.getMinY();
+        
+        myTexture->modifyWith(undoFragment_8->data,xoffset,yoffset);
+        canUndo = true;
+//        undoFragment_8 = NULL;
+        if (!undoFragment_9) {
+            redo_ind = undo_ind;
+            undo_ind=0;
+            return false;
+        }
+    }
+    else if (canUndo && undoFragment_9 && undo_ind==9) {
+        /// save redo PaintingFragment
+        if (redoFragment_9) delete redoFragment_9;
+        CZImage *currentImg = imageDataInRect(undoFragment_9->bounds);
+        redoFragment_9 = new CZPaintingFragment(*undoFragment_9);
+        redoFragment_9->data = currentImg;
+        canRedo = true;
+        
+        /// take undo action
+        GLint xoffset = (GLint)undoFragment_9->bounds.getMinX();
+        GLint yoffset = (GLint)undoFragment_9->bounds.getMinY();
+        
+        myTexture->modifyWith(undoFragment_9->data,xoffset,yoffset);
+        canUndo = true;
+//        undoFragment_9 = NULL;
+        redo_ind = undo_ind;
+        undo_ind=0;
+        return false;
+    }
+    else {
+        redo_ind = undo_ind;
+        undo_ind=0;
+        return false;
+    }
+    redo_ind = undo_ind;
+    undo_ind++;
     return true;
 }
 
 /// 重做操作
 bool CZLayer::redoAction()
 {
-    if (canRedo && redoFragment)
+    if (canRedo && redoFragment_9 && redo_ind==9)
+    {
+        /// take redo action
+        GLint xoffset = (GLint)redoFragment_9->bounds.getMinX();
+        GLint yoffset = (GLint)redoFragment_9->bounds.getMinY();
+        
+        myTexture->modifyWith(redoFragment_9->data,xoffset,yoffset);
+        canRedo = true;
+        canUndo = true;
+//        redoFragment_9 = NULL;
+    }
+    else if (canRedo && redoFragment_8 && redo_ind==8)
+    {
+        /// take redo action
+        GLint xoffset = (GLint)redoFragment_8->bounds.getMinX();
+        GLint yoffset = (GLint)redoFragment_8->bounds.getMinY();
+        
+        myTexture->modifyWith(redoFragment_8->data,xoffset,yoffset);
+        canRedo = true;
+        canUndo = true;
+//        redoFragment_8 = NULL;
+    }
+    else if (canRedo && redoFragment_7 && redo_ind==7)
+    {
+        /// take redo action
+        GLint xoffset = (GLint)redoFragment_7->bounds.getMinX();
+        GLint yoffset = (GLint)redoFragment_7->bounds.getMinY();
+        
+        myTexture->modifyWith(redoFragment_7->data,xoffset,yoffset);
+        canRedo = true;
+        canUndo = true;
+//        redoFragment_7 = NULL;
+    }
+    else if (canRedo && redoFragment_6 && redo_ind==6)
+    {
+        /// take redo action
+        GLint xoffset = (GLint)redoFragment_6->bounds.getMinX();
+        GLint yoffset = (GLint)redoFragment_6->bounds.getMinY();
+        
+        myTexture->modifyWith(redoFragment_6->data,xoffset,yoffset);
+        canRedo = true;
+        canUndo = true;
+//        redoFragment_6 = NULL;
+    }
+    else if (canRedo && redoFragment_5 && redo_ind==5)
+    {
+        /// take redo action
+        GLint xoffset = (GLint)redoFragment_5->bounds.getMinX();
+        GLint yoffset = (GLint)redoFragment_5->bounds.getMinY();
+        
+        myTexture->modifyWith(redoFragment_5->data,xoffset,yoffset);
+        canRedo = true;
+        canUndo = true;
+//        redoFragment_5 = NULL;
+    }
+    else if (canRedo && redoFragment_4 && redo_ind==4)
+    {
+        /// take redo action
+        GLint xoffset = (GLint)redoFragment_4->bounds.getMinX();
+        GLint yoffset = (GLint)redoFragment_4->bounds.getMinY();
+        
+        myTexture->modifyWith(redoFragment_4->data,xoffset,yoffset);
+        canRedo = true;
+        canUndo = true;
+//        redoFragment_4 = NULL;
+    }
+    else if (canRedo && redoFragment_3 && redo_ind==3)
+    {
+        /// take redo action
+        GLint xoffset = (GLint)redoFragment_3->bounds.getMinX();
+        GLint yoffset = (GLint)redoFragment_3->bounds.getMinY();
+        
+        myTexture->modifyWith(redoFragment_3->data,xoffset,yoffset);
+        canRedo = true;
+        canUndo = true;
+//        redoFragment_3 = NULL;
+    }
+    else if (canRedo && redoFragment_2 && redo_ind==2)
+    {
+        /// take redo action
+        GLint xoffset = (GLint)redoFragment_2->bounds.getMinX();
+        GLint yoffset = (GLint)redoFragment_2->bounds.getMinY();
+        
+        myTexture->modifyWith(redoFragment_2->data,xoffset,yoffset);
+        canRedo = true;
+        canUndo = true;
+//        redoFragment_2 = NULL;
+    }
+    else if (canRedo && redoFragment_1 && redo_ind==1)
+    {
+        /// take redo action
+        GLint xoffset = (GLint)redoFragment_1->bounds.getMinX();
+        GLint yoffset = (GLint)redoFragment_1->bounds.getMinY();
+        
+        myTexture->modifyWith(redoFragment_1->data,xoffset,yoffset);
+        canRedo = true;
+        canUndo = true;
+//        redoFragment_1 = NULL;
+    }
+    else if (canRedo && redoFragment && redo_ind==0)
     {
         /// take redo action
         GLint xoffset = (GLint)redoFragment->bounds.getMinX();
         GLint yoffset = (GLint)redoFragment->bounds.getMinY();
 
         myTexture->modifyWith(redoFragment->data,xoffset,yoffset);
-        canRedo = false;
+        canRedo = true;
         canUndo = true;
+        undo_ind = redo_ind;
+        redo_ind = 0;
+        return false;
     }
-    else return false;
-    
+    else {
+        undo_ind = redo_ind;
+        redo_ind = 0;
+        return false;
+    }
+    undo_ind = redo_ind;
+    redo_ind--;
     return true;
 }
 
@@ -1237,8 +1576,72 @@ void CZLayer::blit(CZMat4 &projection, const CZAffineTransform &trans)
 }
 
 /// 注册撤销操作
+static int i = 0;
 void CZLayer::registerUndoInRect(CZRect &rect)
 {
+    if (undoFragment_9) {
+        delete undoFragment_9;
+    }
+    if (undoFragment_8) {
+        undoFragment_9 = new CZPaintingFragment(*undoFragment_8); // copy constructor
+    }
+    
+    if (undoFragment_8) {
+        delete undoFragment_8;
+    }
+    if (undoFragment_7) {
+        undoFragment_8 = new CZPaintingFragment(*undoFragment_7); // copy constructor
+    }
+    
+    if (undoFragment_7) {
+        delete undoFragment_7;
+    }
+    if (undoFragment_6) {
+        undoFragment_7 = new CZPaintingFragment(*undoFragment_6); // copy constructor
+    }
+    
+    if (undoFragment_6) {
+        delete undoFragment_6;
+    }
+    if (undoFragment_5) {
+        undoFragment_6 = new CZPaintingFragment(*undoFragment_5); // copy constructor
+    }
+    
+    if (undoFragment_5) {
+        delete undoFragment_5;
+    }
+    if (undoFragment_4) {
+        undoFragment_5 = new CZPaintingFragment(*undoFragment_4); // copy constructor
+    }
+    
+    if (undoFragment_4) {
+        delete undoFragment_4;
+    }
+    if (undoFragment_3) {
+        undoFragment_4 = new CZPaintingFragment(*undoFragment_3); // copy constructor
+    }
+    
+    if (undoFragment_3) {
+        delete undoFragment_3;
+    }
+    if (undoFragment_2) {
+        undoFragment_3 = new CZPaintingFragment(*undoFragment_2); // copy constructor
+    }
+    
+    if (undoFragment_2) {
+        delete undoFragment_2;
+    }
+    if (undoFragment_1) {
+        undoFragment_2 = new CZPaintingFragment(*undoFragment_1); // copy constructor
+    }
+    
+    if (undoFragment_1) {
+        delete undoFragment_1;
+    }
+    if (undoFragment) {
+        undoFragment_1 = new CZPaintingFragment(*undoFragment); // copy constructor
+    }
+    
     if (undoFragment) delete undoFragment;
     
     CZRect newRect = rect.intersectWith(ptrPainting->getBounds());
@@ -1246,6 +1649,11 @@ void CZLayer::registerUndoInRect(CZRect &rect)
     undoFragment = new CZPaintingFragment(currentImg,newRect);
     
     canUndo = true;
+    i++;
+}
+
+void CZLayer::registerUndosInRect(CZRect &rect) {
+    
 }
 
 void CZLayer::clearThumbnailImage()

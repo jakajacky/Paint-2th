@@ -828,14 +828,14 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentation
 #pragma mark - Actions
 
 - (void)undo:(UIBarButtonItem *)sender {
-    undoItem.enabled = NO;
+    undoItem.enabled = YES; // 应该为NO
     redoItem.enabled = YES;
     undoItem.image = [UIImage imageNamed:@"undo_n"];
     redoItem.image = [UIImage imageNamed:@"redo"];
     
     switch (preAction.type) {
         case kCanvasChanging:
-            [[HYBrushCore sharedInstance] undoPaintingOfLayer:preAction.activeLayerIdx];
+            undoItem.enabled = [[HYBrushCore sharedInstance] undoPaintingOfLayer:preAction.activeLayerIdx];
             break;
         case kAddingLayer:
         case kDuplicatingLayer:
@@ -852,13 +852,13 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentation
 
 - (void)redo:(UIBarButtonItem *)sender {
     undoItem.enabled = YES;
-    redoItem.enabled = NO;
+    redoItem.enabled = YES; // 应该为NO
     undoItem.image = [UIImage imageNamed:@"undo"];
     redoItem.image = [UIImage imageNamed:@"redo_n"];
     
     switch (preAction.type) {
         case kCanvasChanging:
-            [[HYBrushCore sharedInstance] redoPaintingOfLayer:preAction.activeLayerIdx];
+            redoItem.enabled = [[HYBrushCore sharedInstance] redoPaintingOfLayer:preAction.activeLayerIdx];
             break;
         case kAddingLayer:
             [[HYBrushCore sharedInstance] setActiveLayer:preAction.activeLayerIdx];
