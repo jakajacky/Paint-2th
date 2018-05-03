@@ -69,6 +69,7 @@ CZLayer::CZLayer(CZPainting* paiting_) : ptrPainting(paiting_)
     redoFragment = redoFragment_1 = redoFragment_2 = redoFragment_3 = redoFragment_4 = redoFragment_5 = redoFragment_6 = redoFragment_7 = redoFragment_8 = redoFragment_9 = NULL;
     undo_ind = 0;
     redo_ind = 0;
+    didUndo  = false;
     
     canRedo = canUndo = false;
 }
@@ -913,6 +914,7 @@ bool CZLayer::setImage(CZImage *img)
 /// 撤销操作
 bool CZLayer::undoAction()
 {
+    didUndo = true;
     if (canUndo && undoFragment && undo_ind==0)
     {
         /// save redo PaintingFragment
@@ -1257,6 +1259,18 @@ bool CZLayer::redoAction()
     return true;
 }
 
+void CZLayer::resetUndoAndRedoEnvironment(int undo_i) {
+    if (didUndo) {
+        
+        
+//        undoFragment = undoFragment_1 = undoFragment_2 = undoFragment_3 = undoFragment_4 = undoFragment_5 = undoFragment_6 = undoFragment_7 = undoFragment_8 = undoFragment_9 = NULL;
+//        redoFragment = redoFragment_1 = redoFragment_2 = redoFragment_3 = redoFragment_4 = redoFragment_5 = redoFragment_6 = redoFragment_7 = redoFragment_8 = redoFragment_9 = NULL;
+        undo_ind = 0;
+        redo_ind = 0;
+        didUndo  = false;
+    }
+}
+
 /// 切换可见性
 void CZLayer::toggleVisibility()
 {
@@ -1579,6 +1593,7 @@ void CZLayer::blit(CZMat4 &projection, const CZAffineTransform &trans)
 static int i = 0;
 void CZLayer::registerUndoInRect(CZRect &rect)
 {
+    resetUndoAndRedoEnvironment(undo_ind);
     if (undoFragment_9) {
         delete undoFragment_9;
     }

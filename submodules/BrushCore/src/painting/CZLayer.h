@@ -60,6 +60,9 @@ public:
 	/// 生成特定矩形区域的图像数据
 	CZImage *imageDataInRect(const CZRect &rect);
 	
+    /// reset undo&redo environment
+    void resetUndoAndRedoEnvironment(int undo_ind);
+    
 	/// 绘制图层
 	void basicBlit(CZMat4 &projection);
 	/// 绘制图层（考虑移动转换、颜色调整等）
@@ -193,6 +196,8 @@ private:
 												///< 撤销和重做的片段
     int undo_ind;
     int redo_ind;
+    bool didUndo;
+    
 	CZGLContext *ptrGLContext;					///< gl上下文
 	char* uuid;									///< 编号
     
