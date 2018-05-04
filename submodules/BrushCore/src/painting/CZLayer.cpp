@@ -1384,7 +1384,9 @@ void CZLayer::resetUndoAndRedoEnvironment(int undo_i) {
                 if (undoFragment_9) {
                     undoFragment_7 = new CZPaintingFragment(*undoFragment_9); // copy constructor
                 }
-                
+                // right move 2, so 8.9 is useless, so take duplicate undoFrame NULL
+                undoFragment_8 = NULL;
+                undoFragment_9 = NULL;
                 break;
             }
             case 3:{
@@ -1436,6 +1438,10 @@ void CZLayer::resetUndoAndRedoEnvironment(int undo_i) {
                 if (undoFragment_9) {
                     undoFragment_6 = new CZPaintingFragment(*undoFragment_9); // copy constructor
                 }
+                // right move 3, so 7.8.9 is useless, so take duplicate undoFrame NULL
+                undoFragment_7 = NULL;
+                undoFragment_8 = NULL;
+                undoFragment_9 = NULL;
                 break;
             }
             case 4:{
@@ -1480,6 +1486,10 @@ void CZLayer::resetUndoAndRedoEnvironment(int undo_i) {
                 if (undoFragment_9) {
                     undoFragment_5 = new CZPaintingFragment(*undoFragment_9); // copy constructor
                 }
+                undoFragment_6 = NULL;
+                undoFragment_7 = NULL;
+                undoFragment_8 = NULL;
+                undoFragment_9 = NULL;
                 break;
             }
             case 5:{
@@ -1517,6 +1527,11 @@ void CZLayer::resetUndoAndRedoEnvironment(int undo_i) {
                 if (undoFragment_9) {
                     undoFragment_4 = new CZPaintingFragment(*undoFragment_9); // copy constructor
                 }
+                undoFragment_5 = NULL;
+                undoFragment_6 = NULL;
+                undoFragment_7 = NULL;
+                undoFragment_8 = NULL;
+                undoFragment_9 = NULL;
                 break;
             }
             case 6:{
@@ -1547,6 +1562,12 @@ void CZLayer::resetUndoAndRedoEnvironment(int undo_i) {
                 if (undoFragment_9) {
                     undoFragment_3 = new CZPaintingFragment(*undoFragment_9); // copy constructor
                 }
+                undoFragment_4 = NULL;
+                undoFragment_5 = NULL;
+                undoFragment_6 = NULL;
+                undoFragment_7 = NULL;
+                undoFragment_8 = NULL;
+                undoFragment_9 = NULL;
                 break;
             }
             case 7:{
@@ -1570,6 +1591,13 @@ void CZLayer::resetUndoAndRedoEnvironment(int undo_i) {
                 if (undoFragment_9) {
                     undoFragment_2 = new CZPaintingFragment(*undoFragment_9); // copy constructor
                 }
+                undoFragment_3 = NULL;
+                undoFragment_4 = NULL;
+                undoFragment_5 = NULL;
+                undoFragment_6 = NULL;
+                undoFragment_7 = NULL;
+                undoFragment_8 = NULL;
+                undoFragment_9 = NULL;
                 break;
             }
             case 8:{
@@ -1586,6 +1614,14 @@ void CZLayer::resetUndoAndRedoEnvironment(int undo_i) {
                 if (undoFragment_9) {
                     undoFragment_1 = new CZPaintingFragment(*undoFragment_9); // copy constructor
                 }
+                undoFragment_2 = NULL;
+                undoFragment_3 = NULL;
+                undoFragment_4 = NULL;
+                undoFragment_5 = NULL;
+                undoFragment_6 = NULL;
+                undoFragment_7 = NULL;
+                undoFragment_8 = NULL;
+                undoFragment_9 = NULL;
                 break;
             }
             case 9:{
@@ -1595,6 +1631,15 @@ void CZLayer::resetUndoAndRedoEnvironment(int undo_i) {
                 if (undoFragment_9) {
                     undoFragment = new CZPaintingFragment(*undoFragment_9); // copy constructor
                 }
+                undoFragment_1 = NULL;
+                undoFragment_2 = NULL;
+                undoFragment_3 = NULL;
+                undoFragment_4 = NULL;
+                undoFragment_5 = NULL;
+                undoFragment_6 = NULL;
+                undoFragment_7 = NULL;
+                undoFragment_8 = NULL;
+                undoFragment_9 = NULL;
                 break;
             }
             default:

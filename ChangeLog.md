@@ -21,6 +21,14 @@ bug:
 7. painting的删除
 8. 增加画布变幻复原的手势（双指双击）
 
+-2018-05-06
+    undo&redo逻辑
+    1. 10个undofragment、10个redofragment
+    2. 每一笔记录undofragment，最新的一笔记录在undofragment_0
+    3. 每画一笔，undofragment整体左移1位（从左侧开始，依次用右1位的值覆盖当前值。EX：undofragmen_9 = unfofragment_8）
+    4. 如果undo过程中发生绘画，则根据undo的步数N，undofragment整体右移N位（从右侧开始，依次用右N位的值覆盖当前值。EX：undofragmen_N = unfofragment_0）。这样做的目的是，保证undo之后，对应的undofragment在绘画后被更早的步骤覆盖掉，而不会再次参与到undo中，保证了undofragment都对应于当前的有效的笔画。
+    5. redofragment的建立发生在undoAction的过程中，负责把undo发生modify前的img保存下来，用于之后恢复。
+
 - 2016-05-24
     1. 将interface相关的代码独立出来，放在本项目外
     2. 将core中的代码与glsl分开
