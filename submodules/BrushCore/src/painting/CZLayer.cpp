@@ -1264,124 +1264,141 @@ void CZLayer::resetUndoAndRedoEnvironment(int undo_i) {
         LOG_DEBUG("undo index:%d\n", undo_i);
         switch (undo_i) {
             case 1:{
-                if (undoFragment) {
-                    delete undoFragment;
-                }
+                
                 if (undoFragment_1) {
+                    if (undoFragment) {
+                        delete undoFragment;
+                    }
                     undoFragment = new CZPaintingFragment(*undoFragment_1); // copy constructor
                 }
                 
-                if (undoFragment_1) {
-                    delete undoFragment_1;
-                }
+                
                 if (undoFragment_2) {
+                    if (undoFragment_1) {
+                        delete undoFragment_1;
+                    }
                     undoFragment_1 = new CZPaintingFragment(*undoFragment_2); // copy constructor
                 }
                 
-                if (undoFragment_2) {
-                    delete undoFragment_2;
-                }
+                
                 if (undoFragment_3) {
+                    if (undoFragment_2) {
+                        delete undoFragment_2;
+                    }
                     undoFragment_2 = new CZPaintingFragment(*undoFragment_3); // copy constructor
                 }
                 
-                if (undoFragment_3) {
-                    delete undoFragment_3;
-                }
+                
                 if (undoFragment_4) {
+                    if (undoFragment_3) {
+                        delete undoFragment_3;
+                    }
                     undoFragment_3 = new CZPaintingFragment(*undoFragment_4); // copy constructor
                 }
                 
-                if (undoFragment_4) {
-                    delete undoFragment_4;
-                }
+                
                 if (undoFragment_5) {
+                    if (undoFragment_4) {
+                        delete undoFragment_4;
+                    }
                     undoFragment_4 = new CZPaintingFragment(*undoFragment_5); // copy constructor
                 }
                 
-                if (undoFragment_5) {
-                    delete undoFragment_5;
-                }
+                
                 if (undoFragment_6) {
+                    if (undoFragment_5) {
+                        delete undoFragment_5;
+                    }
                     undoFragment_5 = new CZPaintingFragment(*undoFragment_6); // copy constructor
                 }
                 
-                if (undoFragment_6) {
-                    delete undoFragment_6;
-                }
+                
                 if (undoFragment_7) {
+                    if (undoFragment_6) {
+                        delete undoFragment_6;
+                    }
                     undoFragment_6 = new CZPaintingFragment(*undoFragment_7); // copy constructor
                 }
                 
-                if (undoFragment_7) {
-                    delete undoFragment_7;
-                }
+                
                 if (undoFragment_8) {
+                    if (undoFragment_7) {
+                        delete undoFragment_7;
+                    }
                     undoFragment_7 = new CZPaintingFragment(*undoFragment_8); // copy constructor
                 }
                 
-                if (undoFragment_8) {
-                    delete undoFragment_8;
-                }
+                
                 if (undoFragment_9) {
+                    if (undoFragment_8) {
+                        delete undoFragment_8;
+                    }
                     undoFragment_8 = new CZPaintingFragment(*undoFragment_9); // copy constructor
                 }
                 break;
             }
             case 2:{
-                if (undoFragment) {
-                    delete undoFragment;
-                }
+                
                 if (undoFragment_2) {
+                    if (undoFragment) {
+                        delete undoFragment;
+                    }
                     undoFragment = new CZPaintingFragment(*undoFragment_2); // copy constructor
                 }
                 
-                if (undoFragment_1) {
-                    delete undoFragment_1;
-                }
+                
                 if (undoFragment_3) {
+                    if (undoFragment_1) {
+                        delete undoFragment_1;
+                    }
                     undoFragment_1 = new CZPaintingFragment(*undoFragment_3); // copy constructor
                 }
                 
-                if (undoFragment_2) {
-                    delete undoFragment_2;
-                }
+                
                 if (undoFragment_4) {
+                    if (undoFragment_2) {
+                        delete undoFragment_2;
+                    }
                     undoFragment_2 = new CZPaintingFragment(*undoFragment_4); // copy constructor
                 }
                 
-                if (undoFragment_3) {
-                    delete undoFragment_3;
-                }
+                
                 if (undoFragment_5) {
+                    if (undoFragment_3) {
+                        delete undoFragment_3;
+                    }
                     undoFragment_3 = new CZPaintingFragment(*undoFragment_5); // copy constructor
                 }
                 
-                if (undoFragment_4) {
-                    delete undoFragment_4;
-                }
+                
                 if (undoFragment_6) {
+                    if (undoFragment_4) {
+                        delete undoFragment_4;
+                    }
                     undoFragment_4 = new CZPaintingFragment(*undoFragment_6); // copy constructor
                 }
                 
-                if (undoFragment_5) {
-                    delete undoFragment_5;
-                }
+                
                 if (undoFragment_7) {
+                    if (undoFragment_5) {
+                        delete undoFragment_5;
+                    }
                     undoFragment_5 = new CZPaintingFragment(*undoFragment_7); // copy constructor
                 }
                 
-                if (undoFragment_6) {
-                    delete undoFragment_6;
-                }
+                
                 if (undoFragment_8) {
+                    if (undoFragment_6) {
+                        delete undoFragment_6;
+                    }
                     undoFragment_6 = new CZPaintingFragment(*undoFragment_8); // copy constructor
                 }
                 
-                if (undoFragment_7) {
-                    delete undoFragment_7;
-                }
+                
                 if (undoFragment_9) {
+                    if (undoFragment_7) {
+                        delete undoFragment_7;
+                    }
                     undoFragment_7 = new CZPaintingFragment(*undoFragment_9); // copy constructor
                 }
                 // right move 2, so 8.9 is useless, so take duplicate undoFrame NULL
@@ -1390,52 +1407,59 @@ void CZLayer::resetUndoAndRedoEnvironment(int undo_i) {
                 break;
             }
             case 3:{
-                if (undoFragment) {
-                    delete undoFragment;
-                }
+                
                 if (undoFragment_3) {
+                    if (undoFragment) {
+                        delete undoFragment;
+                    }
                     undoFragment = new CZPaintingFragment(*undoFragment_3); // copy constructor
                 }
                 
-                if (undoFragment_1) {
-                    delete undoFragment_1;
-                }
+                
                 if (undoFragment_4) {
+                    if (undoFragment_1) {
+                        delete undoFragment_1;
+                    }
                     undoFragment_1 = new CZPaintingFragment(*undoFragment_4); // copy constructor
                 }
                 
-                if (undoFragment_2) {
-                    delete undoFragment_2;
-                }
+                
                 if (undoFragment_5) {
+                    if (undoFragment_2) {
+                        delete undoFragment_2;
+                    }
                     undoFragment_2 = new CZPaintingFragment(*undoFragment_5); // copy constructor
                 }
                 
-                if (undoFragment_3) {
-                    delete undoFragment_3;
-                }
+                
                 if (undoFragment_6) {
+                    if (undoFragment_3) {
+                        delete undoFragment_3;
+                    }
                     undoFragment_3 = new CZPaintingFragment(*undoFragment_6); // copy constructor
                 }
                 
-                if (undoFragment_4) {
-                    delete undoFragment_4;
-                }
+                
                 if (undoFragment_7) {
+                    if (undoFragment_4) {
+                        delete undoFragment_4;
+                    }
                     undoFragment_4 = new CZPaintingFragment(*undoFragment_7); // copy constructor
                 }
                 
-                if (undoFragment_5) {
-                    delete undoFragment_5;
-                }
+               
                 if (undoFragment_8) {
+                    if (undoFragment_5) {
+                        delete undoFragment_5;
+                    }
                     undoFragment_5 = new CZPaintingFragment(*undoFragment_8); // copy constructor
                 }
                 
-                if (undoFragment_6) {
-                    delete undoFragment_6;
-                }
+                
                 if (undoFragment_9) {
+                    if (undoFragment_6) {
+                        delete undoFragment_6;
+                    }
                     undoFragment_6 = new CZPaintingFragment(*undoFragment_9); // copy constructor
                 }
                 // right move 3, so 7.8.9 is useless, so take duplicate undoFrame NULL
@@ -1445,45 +1469,51 @@ void CZLayer::resetUndoAndRedoEnvironment(int undo_i) {
                 break;
             }
             case 4:{
-                if (undoFragment) {
-                    delete undoFragment;
-                }
+                
                 if (undoFragment_4) {
+                    if (undoFragment) {
+                        delete undoFragment;
+                    }
                     undoFragment = new CZPaintingFragment(*undoFragment_4); // copy constructor
                 }
                 
-                if (undoFragment_1) {
-                    delete undoFragment_1;
-                }
+                
                 if (undoFragment_5) {
+                    if (undoFragment_1) {
+                        delete undoFragment_1;
+                    }
                     undoFragment_1 = new CZPaintingFragment(*undoFragment_5); // copy constructor
                 }
                 
-                if (undoFragment_2) {
-                    delete undoFragment_2;
-                }
+                
                 if (undoFragment_6) {
+                    if (undoFragment_2) {
+                        delete undoFragment_2;
+                    }
                     undoFragment_2 = new CZPaintingFragment(*undoFragment_6); // copy constructor
                 }
                 
-                if (undoFragment_3) {
-                    delete undoFragment_3;
-                }
+                
                 if (undoFragment_7) {
+                    if (undoFragment_3) {
+                        delete undoFragment_3;
+                    }
                     undoFragment_3 = new CZPaintingFragment(*undoFragment_7); // copy constructor
                 }
                 
-                if (undoFragment_4) {
-                    delete undoFragment_4;
-                }
+                
                 if (undoFragment_8) {
+                    if (undoFragment_4) {
+                        delete undoFragment_4;
+                    }
                     undoFragment_4 = new CZPaintingFragment(*undoFragment_8); // copy constructor
                 }
                 
-                if (undoFragment_5) {
-                    delete undoFragment_5;
-                }
+                
                 if (undoFragment_9) {
+                    if (undoFragment_5) {
+                        delete undoFragment_5;
+                    }
                     undoFragment_5 = new CZPaintingFragment(*undoFragment_9); // copy constructor
                 }
                 undoFragment_6 = NULL;
@@ -1493,38 +1523,43 @@ void CZLayer::resetUndoAndRedoEnvironment(int undo_i) {
                 break;
             }
             case 5:{
-                if (undoFragment) {
-                    delete undoFragment;
-                }
+                
                 if (undoFragment_5) {
+                    if (undoFragment) {
+                        delete undoFragment;
+                    }
                     undoFragment = new CZPaintingFragment(*undoFragment_5); // copy constructor
                 }
                 
-                if (undoFragment_1) {
-                    delete undoFragment_1;
-                }
+                
                 if (undoFragment_6) {
+                    if (undoFragment_1) {
+                        delete undoFragment_1;
+                    }
                     undoFragment_1 = new CZPaintingFragment(*undoFragment_6); // copy constructor
                 }
                 
-                if (undoFragment_2) {
-                    delete undoFragment_2;
-                }
+                
                 if (undoFragment_7) {
+                    if (undoFragment_2) {
+                        delete undoFragment_2;
+                    }
                     undoFragment_2 = new CZPaintingFragment(*undoFragment_7); // copy constructor
                 }
                 
-                if (undoFragment_3) {
-                    delete undoFragment_3;
-                }
+                
                 if (undoFragment_8) {
+                    if (undoFragment_3) {
+                        delete undoFragment_3;
+                    }
                     undoFragment_3 = new CZPaintingFragment(*undoFragment_8); // copy constructor
                 }
                 
-                if (undoFragment_4) {
-                    delete undoFragment_4;
-                }
+                
                 if (undoFragment_9) {
+                    if (undoFragment_4) {
+                        delete undoFragment_4;
+                    }
                     undoFragment_4 = new CZPaintingFragment(*undoFragment_9); // copy constructor
                 }
                 undoFragment_5 = NULL;
@@ -1535,31 +1570,35 @@ void CZLayer::resetUndoAndRedoEnvironment(int undo_i) {
                 break;
             }
             case 6:{
-                if (undoFragment) {
-                    delete undoFragment;
-                }
+                
                 if (undoFragment_6) {
+                    if (undoFragment) {
+                        delete undoFragment;
+                    }
                     undoFragment = new CZPaintingFragment(*undoFragment_6); // copy constructor
                 }
                 
-                if (undoFragment_1) {
-                    delete undoFragment_1;
-                }
+                
                 if (undoFragment_7) {
+                    if (undoFragment_1) {
+                        delete undoFragment_1;
+                    }
                     undoFragment_1 = new CZPaintingFragment(*undoFragment_7); // copy constructor
                 }
                 
-                if (undoFragment_2) {
-                    delete undoFragment_2;
-                }
+                
                 if (undoFragment_8) {
+                    if (undoFragment_2) {
+                        delete undoFragment_2;
+                    }
                     undoFragment_2 = new CZPaintingFragment(*undoFragment_8); // copy constructor
                 }
                 
-                if (undoFragment_3) {
-                    delete undoFragment_3;
-                }
+                
                 if (undoFragment_9) {
+                    if (undoFragment_3) {
+                        delete undoFragment_3;
+                    }
                     undoFragment_3 = new CZPaintingFragment(*undoFragment_9); // copy constructor
                 }
                 undoFragment_4 = NULL;
@@ -1571,24 +1610,27 @@ void CZLayer::resetUndoAndRedoEnvironment(int undo_i) {
                 break;
             }
             case 7:{
-                if (undoFragment) {
-                    delete undoFragment;
-                }
+                
                 if (undoFragment_7) {
+                    if (undoFragment) {
+                        delete undoFragment;
+                    }
                     undoFragment = new CZPaintingFragment(*undoFragment_7); // copy constructor
                 }
                 
-                if (undoFragment_1) {
-                    delete undoFragment_1;
-                }
+                
                 if (undoFragment_8) {
+                    if (undoFragment_1) {
+                        delete undoFragment_1;
+                    }
                     undoFragment_1 = new CZPaintingFragment(*undoFragment_8); // copy constructor
                 }
                 
-                if (undoFragment_2) {
-                    delete undoFragment_2;
-                }
+                
                 if (undoFragment_9) {
+                    if (undoFragment_2) {
+                        delete undoFragment_2;
+                    }
                     undoFragment_2 = new CZPaintingFragment(*undoFragment_9); // copy constructor
                 }
                 undoFragment_3 = NULL;
@@ -1601,17 +1643,19 @@ void CZLayer::resetUndoAndRedoEnvironment(int undo_i) {
                 break;
             }
             case 8:{
-                if (undoFragment) {
-                    delete undoFragment;
-                }
+                
                 if (undoFragment_8) {
+                    if (undoFragment) {
+                        delete undoFragment;
+                    }
                     undoFragment = new CZPaintingFragment(*undoFragment_8); // copy constructor
                 }
                 
-                if (undoFragment_1) {
-                    delete undoFragment_1;
-                }
+                
                 if (undoFragment_9) {
+                    if (undoFragment_1) {
+                        delete undoFragment_1;
+                    }
                     undoFragment_1 = new CZPaintingFragment(*undoFragment_9); // copy constructor
                 }
                 undoFragment_2 = NULL;
@@ -1625,10 +1669,11 @@ void CZLayer::resetUndoAndRedoEnvironment(int undo_i) {
                 break;
             }
             case 9:{
-                if (undoFragment) {
-                    delete undoFragment;
-                }
+                
                 if (undoFragment_9) {
+                    if (undoFragment) {
+                        delete undoFragment;
+                    }
                     undoFragment = new CZPaintingFragment(*undoFragment_9); // copy constructor
                 }
                 undoFragment_1 = NULL;
