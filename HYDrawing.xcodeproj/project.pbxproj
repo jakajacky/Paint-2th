@@ -103,6 +103,7 @@
 		809242E31CBB4A7700E78800 /* ZXHResourceListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 809242E21CBB4A7700E78800 /* ZXHResourceListController.m */; };
 		809242E61CBB4AAF00E78800 /* ZXHResourceContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 809242E51CBB4AAF00E78800 /* ZXHResourceContentController.m */; };
 		809243351CBCC95200E78800 /* DownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 809243341CBCC95200E78800 /* DownloadManager.m */; };
+		C32F113D209C5E3500162294 /* NSArray+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = C32F113B209C5E3400162294 /* NSArray+JSON.m */; };
 		C387CE7620945A94001DEEAA /* libBrushesCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C387CE7520945A94001DEEAA /* libBrushesCore.a */; };
 		C387CE7820945AA4001DEEAA /* BrushesCoreResources.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = C387CE7720945AA4001DEEAA /* BrushesCoreResources.bundle */; };
 /* End PBXBuildFile section */
@@ -291,6 +292,8 @@
 		809242E51CBB4AAF00E78800 /* ZXHResourceContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXHResourceContentController.m; sourceTree = "<group>"; };
 		809243331CBCC95200E78800 /* DownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadManager.h; sourceTree = "<group>"; };
 		809243341CBCC95200E78800 /* DownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadManager.m; sourceTree = "<group>"; };
+		C32F113B209C5E3400162294 /* NSArray+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+JSON.m"; sourceTree = "<group>"; };
+		C32F113C209C5E3400162294 /* NSArray+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+JSON.h"; sourceTree = "<group>"; };
 		C387CE7520945A94001DEEAA /* libBrushesCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libBrushesCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C387CE7720945AA4001DEEAA /* BrushesCoreResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = BrushesCoreResources.bundle; path = submodules/BrushCore/BrushesCoreResources.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -561,6 +564,8 @@
 				2D584CA51D4B48A100938058 /* Vendor */,
 				2D3D07371CF58ECD00775308 /* Resources */,
 				60216AE91B589440009186F4 /* Macro.h */,
+				C32F113C209C5E3400162294 /* NSArray+JSON.h */,
+				C32F113B209C5E3400162294 /* NSArray+JSON.m */,
 				809243331CBCC95200E78800 /* DownloadManager.h */,
 				809243341CBCC95200E78800 /* DownloadManager.m */,
 				53851B661B57AADE00B6F946 /* AppDelegate.h */,
@@ -831,6 +836,7 @@
 				2D584CDD1D4B48A100938058 /* AFNetworkReachabilityManager.m in Sources */,
 				2D584CE31D4B48A100938058 /* MBProgressHUD.m in Sources */,
 				2D3D07121CF58BC400775308 /* CliperMenuView.m in Sources */,
+				C32F113D209C5E3500162294 /* NSArray+JSON.m in Sources */,
 				535306F41B7C3BFD00877D76 /* ZXHLayerTopBar.m in Sources */,
 				538CA68D1B8AE83B0050A39A /* ZXHPaintingListCell.m in Sources */,
 				2D0E59211C08065A00ECD812 /* SettingViewController.m in Sources */,

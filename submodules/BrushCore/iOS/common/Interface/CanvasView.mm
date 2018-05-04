@@ -25,6 +25,12 @@ NSString *CZCanvasDirtyNotification = @"CZCanvasDirtyNotification";
     /// canvas transform related
     NSInteger               lastTouchCount;
     float                   previousScale;
+    NSTimer *timer;
+    NSTimer *timer_point;
+    NSArray *points_ter;
+    int j;
+    CZ2DPoint current_pt;
+    CZActiveState *activeState;
 }
 
 @property (nonatomic, assign) CZFbo* fbo;
@@ -392,6 +398,82 @@ NSString *CZCanvasDirtyNotification = @"CZCanvasDirtyNotification";
     glBindRenderbuffer(GL_RENDERBUFFER, self.fbo->getRenderBufferId());
     [context presentRenderbuffer:GL_RENDERBUFFER];
     LOG_DEBUG("drawView\n");
+}
+
+#pragma mark - replay
+- (void)autoDraw:(NSArray *)paths {
+    __block int i = 0;
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.75 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        if (i>=paths.count) {
+            [timer invalidate];
+            timer = nil;
+            return;
+        }
+        NSDictionary *path = paths[i];
+        points_ter = path[@"coor"];
+        
+        //---pan---
+        LOG_DEBUG("pan\n");
+        
+        if(ptrCanvas == nullptr)
+        {
+            LOG_ERROR("ptrCanvas is null \n");
+            return;
+        }
+        
+        activeState = CZActiveState::getInstance();
+        
+        if (activeState->colorFillMode || activeState->colorPickMode) {
+            return;
+        }
+        
+        if (ptrCanvas == nullptr) {
+            LOG_ERROR("ptrCanvas is null\n");
+            return ;
+        }
+        
+        //
+        // begin
+        NSDictionary *point_first = points_ter[0];
+        CGPoint first = CGPointMake([point_first[@"x"] floatValue], [point_first[@"y"] floatValue]);
+        CGFloat height = self.bounds.size.height;
+        CZ2DPoint pt(first.x,height-first.y);
+        pt = ptrCanvas->transformToPainting(pt);
+        activeState->getActiveTool()->moveBegin(pt);
+        // point定时开始
+        j=0;
+        timer_point = [NSTimer scheduledTimerWithTimeInterval:1.0/points_ter.count target:self selector:@selector(move) userInfo:nil repeats:YES];
+        [[NSRunLoop mainRunLoop] addTimer:timer_point forMode:NSRunLoopCommonModes];
+        
+        i += 1;
+    }];
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+}
+
+- (void)move {
+    [timer setFireDate:[NSDate distantFuture]];
+    if (j>=points_ter.count) {
+        //End
+        activeState->getActiveTool()->moveEnd(current_pt);
+//        [[NSNotificationCenter defaultCenter] postNotificationName:CZCanvasDirtyNotification object:nil];
+        // 重置参数
+        j=0;
+        [timer_point invalidate];
+        timer_point = nil;
+        [timer setFireDate:[NSDate date]];
+        return;
+    }
+    // Move
+    NSDictionary *point = points_ter[j];
+    CGPoint currentPoint = CGPointMake([point[@"x"] floatValue], [point[@"y"] floatValue]);
+    CGFloat height = self.bounds.size.height;
+    CZ2DPoint pt(currentPoint.x,height-currentPoint.y);
+    pt = ptrCanvas->transformToPainting(pt);
+    //LOG_DEBUG("speed is %f\n", speed);
+    activeState->getActiveTool()->moving(pt, 0.01);
+    current_pt = pt;
+    
+    j++;
 }
 
 

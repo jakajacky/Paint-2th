@@ -27,6 +27,7 @@
 #import "PaintingNameManager.h"
 #import "Actions.h"
 #import "UIImage+Resize.h"
+#import "NSArray+JSON.h"
 #import "ZXHResourcePicturesController.h"
 
 extern NSString *CZActivePaintColorDidChange;
@@ -262,6 +263,26 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentation
     // 去掉分割线
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self read];
+}
+
+#pragma mark 加载线稿资源
+- (void)read {
+    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documents = [path objectAtIndex:0];
+    NSString *filepath = [documents stringByAppendingPathComponent:@"paths.txt"];
+    NSString *str = [NSString stringWithContentsOfFile:filepath encoding:NSUTF8StringEncoding error:nil];
+    
+    NSArray *paths = [NSArray stringToJSON:str];
+    
+    CanvasView *canvasView = [[self.view subviews]objectAtIndex:0];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [canvasView autoDraw:paths];
+    });
 }
 
 #pragma mark 图片资源

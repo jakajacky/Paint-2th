@@ -32,6 +32,7 @@ typedef enum ShowingMessageType {
 @property (nonatomic, assign) void* canvas;
 
 - (void)drawView;
+- (void)autoDraw:(NSArray *)paths;
 - (void)setPainting:(void*)painting;
 
 @end
