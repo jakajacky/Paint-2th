@@ -21,8 +21,7 @@ bug:
 7. painting的删除
 8. 增加画布变幻复原的手势（双指双击）
 
--2018-05-06
-    undo&redo逻辑
+- 2018-05-06 【undo&redo逻辑】
     1. 10个undofragment、10个redofragment
     2. 每一笔记录undofragment，最新的一笔记录在undofragment_0
     3. 每画一笔，undofragment整体左移1位（从左侧开始，依次用右1位的值覆盖当前值。EX：undofragmen_9 = unfofragment_8）
