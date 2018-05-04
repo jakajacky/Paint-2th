@@ -1261,7 +1261,345 @@ bool CZLayer::redoAction()
 
 void CZLayer::resetUndoAndRedoEnvironment(int undo_i) {
     if (didUndo) {
-        
+        LOG_DEBUG("undo index:%d\n", undo_i);
+        switch (undo_i) {
+            case 1:{
+                if (undoFragment) {
+                    delete undoFragment;
+                }
+                if (undoFragment_1) {
+                    undoFragment = new CZPaintingFragment(*undoFragment_1); // copy constructor
+                }
+                
+                if (undoFragment_1) {
+                    delete undoFragment_1;
+                }
+                if (undoFragment_2) {
+                    undoFragment_1 = new CZPaintingFragment(*undoFragment_2); // copy constructor
+                }
+                
+                if (undoFragment_2) {
+                    delete undoFragment_2;
+                }
+                if (undoFragment_3) {
+                    undoFragment_2 = new CZPaintingFragment(*undoFragment_3); // copy constructor
+                }
+                
+                if (undoFragment_3) {
+                    delete undoFragment_3;
+                }
+                if (undoFragment_4) {
+                    undoFragment_3 = new CZPaintingFragment(*undoFragment_4); // copy constructor
+                }
+                
+                if (undoFragment_4) {
+                    delete undoFragment_4;
+                }
+                if (undoFragment_5) {
+                    undoFragment_4 = new CZPaintingFragment(*undoFragment_5); // copy constructor
+                }
+                
+                if (undoFragment_5) {
+                    delete undoFragment_5;
+                }
+                if (undoFragment_6) {
+                    undoFragment_5 = new CZPaintingFragment(*undoFragment_6); // copy constructor
+                }
+                
+                if (undoFragment_6) {
+                    delete undoFragment_6;
+                }
+                if (undoFragment_7) {
+                    undoFragment_6 = new CZPaintingFragment(*undoFragment_7); // copy constructor
+                }
+                
+                if (undoFragment_7) {
+                    delete undoFragment_7;
+                }
+                if (undoFragment_8) {
+                    undoFragment_7 = new CZPaintingFragment(*undoFragment_8); // copy constructor
+                }
+                
+                if (undoFragment_8) {
+                    delete undoFragment_8;
+                }
+                if (undoFragment_9) {
+                    undoFragment_8 = new CZPaintingFragment(*undoFragment_9); // copy constructor
+                }
+                break;
+            }
+            case 2:{
+                if (undoFragment) {
+                    delete undoFragment;
+                }
+                if (undoFragment_2) {
+                    undoFragment = new CZPaintingFragment(*undoFragment_2); // copy constructor
+                }
+                
+                if (undoFragment_1) {
+                    delete undoFragment_1;
+                }
+                if (undoFragment_3) {
+                    undoFragment_1 = new CZPaintingFragment(*undoFragment_3); // copy constructor
+                }
+                
+                if (undoFragment_2) {
+                    delete undoFragment_2;
+                }
+                if (undoFragment_4) {
+                    undoFragment_2 = new CZPaintingFragment(*undoFragment_4); // copy constructor
+                }
+                
+                if (undoFragment_3) {
+                    delete undoFragment_3;
+                }
+                if (undoFragment_5) {
+                    undoFragment_3 = new CZPaintingFragment(*undoFragment_5); // copy constructor
+                }
+                
+                if (undoFragment_4) {
+                    delete undoFragment_4;
+                }
+                if (undoFragment_6) {
+                    undoFragment_4 = new CZPaintingFragment(*undoFragment_6); // copy constructor
+                }
+                
+                if (undoFragment_5) {
+                    delete undoFragment_5;
+                }
+                if (undoFragment_7) {
+                    undoFragment_5 = new CZPaintingFragment(*undoFragment_7); // copy constructor
+                }
+                
+                if (undoFragment_6) {
+                    delete undoFragment_6;
+                }
+                if (undoFragment_8) {
+                    undoFragment_6 = new CZPaintingFragment(*undoFragment_8); // copy constructor
+                }
+                
+                if (undoFragment_7) {
+                    delete undoFragment_7;
+                }
+                if (undoFragment_9) {
+                    undoFragment_7 = new CZPaintingFragment(*undoFragment_9); // copy constructor
+                }
+                
+                break;
+            }
+            case 3:{
+                if (undoFragment) {
+                    delete undoFragment;
+                }
+                if (undoFragment_3) {
+                    undoFragment = new CZPaintingFragment(*undoFragment_3); // copy constructor
+                }
+                
+                if (undoFragment_1) {
+                    delete undoFragment_1;
+                }
+                if (undoFragment_4) {
+                    undoFragment_1 = new CZPaintingFragment(*undoFragment_4); // copy constructor
+                }
+                
+                if (undoFragment_2) {
+                    delete undoFragment_2;
+                }
+                if (undoFragment_5) {
+                    undoFragment_2 = new CZPaintingFragment(*undoFragment_5); // copy constructor
+                }
+                
+                if (undoFragment_3) {
+                    delete undoFragment_3;
+                }
+                if (undoFragment_6) {
+                    undoFragment_3 = new CZPaintingFragment(*undoFragment_6); // copy constructor
+                }
+                
+                if (undoFragment_4) {
+                    delete undoFragment_4;
+                }
+                if (undoFragment_7) {
+                    undoFragment_4 = new CZPaintingFragment(*undoFragment_7); // copy constructor
+                }
+                
+                if (undoFragment_5) {
+                    delete undoFragment_5;
+                }
+                if (undoFragment_8) {
+                    undoFragment_5 = new CZPaintingFragment(*undoFragment_8); // copy constructor
+                }
+                
+                if (undoFragment_6) {
+                    delete undoFragment_6;
+                }
+                if (undoFragment_9) {
+                    undoFragment_6 = new CZPaintingFragment(*undoFragment_9); // copy constructor
+                }
+                break;
+            }
+            case 4:{
+                if (undoFragment) {
+                    delete undoFragment;
+                }
+                if (undoFragment_4) {
+                    undoFragment = new CZPaintingFragment(*undoFragment_4); // copy constructor
+                }
+                
+                if (undoFragment_1) {
+                    delete undoFragment_1;
+                }
+                if (undoFragment_5) {
+                    undoFragment_1 = new CZPaintingFragment(*undoFragment_5); // copy constructor
+                }
+                
+                if (undoFragment_2) {
+                    delete undoFragment_2;
+                }
+                if (undoFragment_6) {
+                    undoFragment_2 = new CZPaintingFragment(*undoFragment_6); // copy constructor
+                }
+                
+                if (undoFragment_3) {
+                    delete undoFragment_3;
+                }
+                if (undoFragment_7) {
+                    undoFragment_3 = new CZPaintingFragment(*undoFragment_7); // copy constructor
+                }
+                
+                if (undoFragment_4) {
+                    delete undoFragment_4;
+                }
+                if (undoFragment_8) {
+                    undoFragment_4 = new CZPaintingFragment(*undoFragment_8); // copy constructor
+                }
+                
+                if (undoFragment_5) {
+                    delete undoFragment_5;
+                }
+                if (undoFragment_9) {
+                    undoFragment_5 = new CZPaintingFragment(*undoFragment_9); // copy constructor
+                }
+                break;
+            }
+            case 5:{
+                if (undoFragment) {
+                    delete undoFragment;
+                }
+                if (undoFragment_5) {
+                    undoFragment = new CZPaintingFragment(*undoFragment_5); // copy constructor
+                }
+                
+                if (undoFragment_1) {
+                    delete undoFragment_1;
+                }
+                if (undoFragment_6) {
+                    undoFragment_1 = new CZPaintingFragment(*undoFragment_6); // copy constructor
+                }
+                
+                if (undoFragment_2) {
+                    delete undoFragment_2;
+                }
+                if (undoFragment_7) {
+                    undoFragment_2 = new CZPaintingFragment(*undoFragment_7); // copy constructor
+                }
+                
+                if (undoFragment_3) {
+                    delete undoFragment_3;
+                }
+                if (undoFragment_8) {
+                    undoFragment_3 = new CZPaintingFragment(*undoFragment_8); // copy constructor
+                }
+                
+                if (undoFragment_4) {
+                    delete undoFragment_4;
+                }
+                if (undoFragment_9) {
+                    undoFragment_4 = new CZPaintingFragment(*undoFragment_9); // copy constructor
+                }
+                break;
+            }
+            case 6:{
+                if (undoFragment) {
+                    delete undoFragment;
+                }
+                if (undoFragment_6) {
+                    undoFragment = new CZPaintingFragment(*undoFragment_6); // copy constructor
+                }
+                
+                if (undoFragment_1) {
+                    delete undoFragment_1;
+                }
+                if (undoFragment_7) {
+                    undoFragment_1 = new CZPaintingFragment(*undoFragment_7); // copy constructor
+                }
+                
+                if (undoFragment_2) {
+                    delete undoFragment_2;
+                }
+                if (undoFragment_8) {
+                    undoFragment_2 = new CZPaintingFragment(*undoFragment_8); // copy constructor
+                }
+                
+                if (undoFragment_3) {
+                    delete undoFragment_3;
+                }
+                if (undoFragment_9) {
+                    undoFragment_3 = new CZPaintingFragment(*undoFragment_9); // copy constructor
+                }
+                break;
+            }
+            case 7:{
+                if (undoFragment) {
+                    delete undoFragment;
+                }
+                if (undoFragment_7) {
+                    undoFragment = new CZPaintingFragment(*undoFragment_7); // copy constructor
+                }
+                
+                if (undoFragment_1) {
+                    delete undoFragment_1;
+                }
+                if (undoFragment_8) {
+                    undoFragment_1 = new CZPaintingFragment(*undoFragment_8); // copy constructor
+                }
+                
+                if (undoFragment_2) {
+                    delete undoFragment_2;
+                }
+                if (undoFragment_9) {
+                    undoFragment_2 = new CZPaintingFragment(*undoFragment_9); // copy constructor
+                }
+                break;
+            }
+            case 8:{
+                if (undoFragment) {
+                    delete undoFragment;
+                }
+                if (undoFragment_8) {
+                    undoFragment = new CZPaintingFragment(*undoFragment_8); // copy constructor
+                }
+                
+                if (undoFragment_1) {
+                    delete undoFragment_1;
+                }
+                if (undoFragment_9) {
+                    undoFragment_1 = new CZPaintingFragment(*undoFragment_9); // copy constructor
+                }
+                break;
+            }
+            case 9:{
+                if (undoFragment) {
+                    delete undoFragment;
+                }
+                if (undoFragment_9) {
+                    undoFragment = new CZPaintingFragment(*undoFragment_9); // copy constructor
+                }
+                break;
+            }
+            default:
+                break;
+        }
         
 //        undoFragment = undoFragment_1 = undoFragment_2 = undoFragment_3 = undoFragment_4 = undoFragment_5 = undoFragment_6 = undoFragment_7 = undoFragment_8 = undoFragment_9 = NULL;
 //        redoFragment = redoFragment_1 = redoFragment_2 = redoFragment_3 = redoFragment_4 = redoFragment_5 = redoFragment_6 = redoFragment_7 = redoFragment_8 = redoFragment_9 = NULL;
