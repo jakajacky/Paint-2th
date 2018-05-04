@@ -1,4 +1,4 @@
-# DRDrawing
+# HYDrawing
 an iOS Drawing App for iPhone based on BrushCore  
 
 
