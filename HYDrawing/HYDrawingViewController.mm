@@ -78,6 +78,8 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentation
     
     // undo & redo
     Actions *preAction;
+    NSMutableArray *undoActions;
+    NSMutableArray *redoActions;
     UIBarButtonItem *undoItem, *redoItem;
     
     // test saving and loading
@@ -251,6 +253,10 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentation
     [nc addObserver:self selector:@selector(handleCanvasDirtyNotificaton) name:CZCanvasDirtyNotification object:nil];
     [nc addObserver:self selector:@selector(handleLayersOperationNotification:) name:LayersOperation object:nil];
     
+    // 2.1 存储Action
+    undoActions = [NSMutableArray array];
+    redoActions = [NSMutableArray array];
+    
     NSLog(@"Home path is %@",NSHomeDirectory());
 }
 
@@ -266,8 +272,10 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentation
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+    /**
+     * replay
     [self read];
+     */
 }
 
 #pragma mark 加载线稿资源
@@ -854,13 +862,14 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentation
     undoItem.image = [UIImage imageNamed:@"undo_n"];
     redoItem.image = [UIImage imageNamed:@"redo"];
     
-    switch (preAction.type) {
+    Actions *pre = undoActions.lastObject;
+    switch (pre.type) {
         case kCanvasChanging:
-            undoItem.enabled = [[HYBrushCore sharedInstance] undoPaintingOfLayer:preAction.activeLayerIdx];
+            undoItem.enabled = [[HYBrushCore sharedInstance] undoPaintingOfLayer:pre.activeLayerIdx];
             break;
         case kAddingLayer:
         case kDuplicatingLayer:
-            [[HYBrushCore sharedInstance] setActiveLayer:preAction.activeLayerIdx];
+            [[HYBrushCore sharedInstance] setActiveLayer:pre.activeLayerIdx];
             [[HYBrushCore sharedInstance] deleteActiveLayer];
             break;
         case kDeletingLayer:
@@ -868,6 +877,14 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentation
             break;
         default:
             break;
+    }
+    [redoActions addObject:undoActions.lastObject];
+    [undoActions removeLastObject];
+    if (undoActions.count>0) {
+        undoItem.enabled = YES;
+    }
+    else {
+        undoItem.enabled = NO;
     }
 }
 
@@ -877,24 +894,36 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentation
     undoItem.image = [UIImage imageNamed:@"undo"];
     redoItem.image = [UIImage imageNamed:@"redo_n"];
     
-    switch (preAction.type) {
+    Actions *fut = redoActions.lastObject;
+    switch (fut.type) {
         case kCanvasChanging:
-            redoItem.enabled = [[HYBrushCore sharedInstance] redoPaintingOfLayer:preAction.activeLayerIdx];
+            redoItem.enabled = [[HYBrushCore sharedInstance] redoPaintingOfLayer:fut.activeLayerIdx];
             break;
         case kAddingLayer:
-            [[HYBrushCore sharedInstance] setActiveLayer:preAction.activeLayerIdx];
+            [[HYBrushCore sharedInstance] setActiveLayer:fut.activeLayerIdx];
             [[HYBrushCore sharedInstance] addNewLayer];
+            if (redoActions.count>0) {
+                [HYBrushCore sharedInstance].isAllowRedo = YES;
+            }
             break;
         case kDuplicatingLayer:
-            [[HYBrushCore sharedInstance] setActiveLayer:preAction.activeLayerIdx];
+            [[HYBrushCore sharedInstance] setActiveLayer:fut.activeLayerIdx];
             [[HYBrushCore sharedInstance] duplicateActiveLayer];
             break;
         case kDeletingLayer:
-            [[HYBrushCore sharedInstance] setActiveLayer:preAction.activeLayerIdx];
+            [[HYBrushCore sharedInstance] setActiveLayer:fut.activeLayerIdx];
             [[HYBrushCore sharedInstance] deleteActiveLayer];
             break;
         default:
             break;
+    }
+    [undoActions addObject:redoActions.lastObject];
+    [redoActions removeLastObject];
+    if (redoActions.count>0) {
+        redoItem.enabled = YES;
+    }
+    else {
+        redoItem.enabled = NO;
     }
 }
 
@@ -904,11 +933,32 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentation
     undoItem.image = [UIImage imageNamed:@"undo"];
     redoItem.image = [UIImage imageNamed:@"redo_n"];
     
+    [[HYBrushCore sharedInstance] restoreUndoFragments];
+    
     if (preAction == nil || preAction.type != kCanvasChanging) {
         preAction = [Actions createCanvasChangingAction:[[HYBrushCore sharedInstance]getActiveLayerIndex]];
+        if (undoActions.count>9) {
+            for (int i = 1; i<undoActions.count; i++) {
+                undoActions[i-1] = undoActions[i];
+            }
+            [undoActions replaceObjectAtIndex:9 withObject:preAction];
+        }
+        else {
+            [undoActions addObject:preAction];
+        }
     }
-    else
+    else {
         preAction.activeLayerIdx = [[HYBrushCore sharedInstance]getActiveLayerIndex];
+        if (undoActions.count>9) {
+            for (int i = 1; i<undoActions.count; i++) {
+                undoActions[i-1] = undoActions[i];
+            }
+            [undoActions replaceObjectAtIndex:9 withObject:preAction];
+        }
+        else {
+            [undoActions addObject:preAction];
+        }
+    }
 }
 
 - (void) handleLayersOperationNotification:(NSNotification*) notification {
@@ -918,6 +968,15 @@ SettingViewControllerDelegate, ResourceImageSelectDelegate,UIPopoverPresentation
     redoItem.image = [UIImage imageNamed:@"redo_n"];
     
     preAction = [notification userInfo][@"Action"];
+    if (undoActions.count>9) {
+        for (int i = 1; i<undoActions.count; i++) {
+            undoActions[i-1] = undoActions[i];
+        }
+        [undoActions replaceObjectAtIndex:9 withObject:preAction];
+    }
+    else {
+        [undoActions addObject:preAction];
+    }
 }
 
 #pragma mark - Private Methods

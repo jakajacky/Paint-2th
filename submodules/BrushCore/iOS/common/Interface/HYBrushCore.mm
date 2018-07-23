@@ -673,14 +673,158 @@
     return YES;
 }
 
+- (NSMutableDictionary *)redoFragmentDic {
+    if (!_redoFragmentDic) {
+        _redoFragmentDic = [NSMutableDictionary dictionary];
+    }
+    return _redoFragmentDic;
+}
+
+- (NSMutableDictionary *)undoFragmentDic {
+    if (!_undoFragmentDic) {
+        _undoFragmentDic = [NSMutableDictionary dictionary];
+    }
+    return _undoFragmentDic;
+}
+
+- (void)restoreUndoFragments {
+    CZLayer *layer = painting->getActiveLayer();
+    NSString *layer_key = [NSString stringWithFormat:@"%d",painting->getActiveLayerIndex()];
+    NSMutableArray *undof = [NSMutableArray array];
+    if (layer->undoFragment) {
+        [undof addObject:[NSValue valueWithPointer:layer->undoFragment]];
+        if (layer->undoFragment_1) {
+            [undof addObject:[NSValue valueWithPointer:layer->undoFragment_1]];
+            if (layer->undoFragment_2) {
+                [undof addObject:[NSValue valueWithPointer:layer->undoFragment_2]];
+                if (layer->undoFragment_3) {
+                    [undof addObject:[NSValue valueWithPointer:layer->undoFragment_3]];
+                    if (layer->undoFragment_4) {
+                        [undof addObject:[NSValue valueWithPointer:layer->undoFragment_4]];
+                        if (layer->undoFragment_5) {
+                            [undof addObject:[NSValue valueWithPointer:layer->undoFragment_5]];
+                            if (layer->undoFragment_6) {
+                                [undof addObject:[NSValue valueWithPointer:layer->undoFragment_6]];
+                                if (layer->undoFragment_7) {
+                                    [undof addObject:[NSValue valueWithPointer:layer->undoFragment_7]];
+                                    if (layer->undoFragment_8) {
+                                        [undof addObject:[NSValue valueWithPointer:layer->undoFragment_8]];
+                                        if (layer->undoFragment_9) {
+                                            [undof addObject:[NSValue valueWithPointer:layer->undoFragment_9]];
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    [self.undoFragmentDic setValue:undof forKey:layer_key];
+}
+
 - (BOOL) undoPaintingOfLayer:(NSInteger)idx
 {
     int layersNum = painting->getLayersNumber();
     CZLayer *layer = painting->getLayer(int(layersNum - 1 - idx));
-    
+    NSLog(@"undo layer index：%d", painting->getActiveLayerIndex());
     if (layer == nullptr) return NO;
-    
+    if (_isAllowRedo) {
+        NSString *layer_key = [NSString stringWithFormat:@"%d",painting->getActiveLayerIndex()];
+        NSMutableArray *undof = [self.undoFragmentDic valueForKey:layer_key];
+        NSInteger count = undof.count;
+        if (count>0) {
+            
+        }
+        else {
+            
+        }
+        if (count>0) {
+            NSValue *value = undof.firstObject;
+            layer->undoFragment = (CZPaintingFragment*)value.pointerValue;
+            [undof removeObjectAtIndex:0];
+        }
+        if (count>1) {
+            NSValue *value = undof.firstObject;
+            layer->undoFragment_1 = (CZPaintingFragment*)value.pointerValue;
+            [undof removeObjectAtIndex:0];
+        }
+        if (count>2) {
+            NSValue *value = undof.firstObject;
+            layer->undoFragment_2 = (CZPaintingFragment*)value.pointerValue;
+            [undof removeObjectAtIndex:0];
+        }
+        if (count>3) {
+            NSValue *value = undof.firstObject;
+            layer->undoFragment_3 = (CZPaintingFragment*)value.pointerValue;
+            [undof removeObjectAtIndex:0];
+        }
+        if (count>4) {
+            NSValue *value = undof.firstObject;
+            layer->undoFragment_4 = (CZPaintingFragment*)value.pointerValue;
+            [undof removeObjectAtIndex:0];
+        }
+        if (count>5) {
+            NSValue *value = undof.firstObject;
+            layer->undoFragment_5 = (CZPaintingFragment*)value.pointerValue;
+            [undof removeObjectAtIndex:0];
+        }
+        if (count>6) {
+            NSValue *value = undof.firstObject;
+            layer->undoFragment_6 = (CZPaintingFragment*)value.pointerValue;
+            [undof removeObjectAtIndex:0];
+        }
+        if (count>7) {
+            NSValue *value = undof.firstObject;
+            layer->undoFragment_7 = (CZPaintingFragment*)value.pointerValue;
+            [undof removeObjectAtIndex:0];
+        }
+        if (count>8) {
+            NSValue *value = undof.firstObject;
+            layer->undoFragment_8 = (CZPaintingFragment*)value.pointerValue;
+            [undof removeObjectAtIndex:0];
+        }
+        if (count>9) {
+            NSValue *value = undof.firstObject;
+            layer->undoFragment_9 = (CZPaintingFragment*)value.pointerValue;
+            [undof removeObjectAtIndex:0];
+        }
+    }
     BOOL result = layer->undoAction();
+    NSString *layer_key = [NSString stringWithFormat:@"%d",painting->getActiveLayerIndex()];
+    NSMutableArray *redof = [NSMutableArray array];
+    if (layer->redoFragment) {
+        [redof addObject:[NSValue valueWithPointer:layer->redoFragment]];
+        if (layer->redoFragment_1) {
+            [redof addObject:[NSValue valueWithPointer:layer->redoFragment_1]];
+            if (layer->redoFragment_2) {
+                [redof addObject:[NSValue valueWithPointer:layer->redoFragment_2]];
+                if (layer->redoFragment_3) {
+                    [redof addObject:[NSValue valueWithPointer:layer->redoFragment_3]];
+                    if (layer->redoFragment_4) {
+                        [redof addObject:[NSValue valueWithPointer:layer->redoFragment_4]];
+                        if (layer->redoFragment_5) {
+                            [redof addObject:[NSValue valueWithPointer:layer->redoFragment_5]];
+                            if (layer->redoFragment_6) {
+                                [redof addObject:[NSValue valueWithPointer:layer->redoFragment_6]];
+                                if (layer->redoFragment_7) {
+                                    [redof addObject:[NSValue valueWithPointer:layer->redoFragment_7]];
+                                    if (layer->redoFragment_8) {
+                                        [redof addObject:[NSValue valueWithPointer:layer->redoFragment_8]];
+                                        if (layer->redoFragment_9) {
+                                            [redof addObject:[NSValue valueWithPointer:layer->redoFragment_9]];
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    [self.redoFragmentDic setValue:redof forKey:layer_key];
     canvas->drawView();
     return result;
 }
@@ -689,9 +833,73 @@
 {
     int layersNum = painting->getLayersNumber();
     CZLayer *layer = painting->getLayer(int(layersNum - 1 - idx));
-    
+    NSLog(@"redo layer index：%d", painting->getActiveLayerIndex());
     if (layer == nullptr) return NO;
-    
+    if (_isAllowRedo) {
+        layer->canRedo = true;
+        NSString *layer_key = [NSString stringWithFormat:@"%d",painting->getActiveLayerIndex()];
+        NSMutableArray *redof = [self.redoFragmentDic valueForKey:layer_key];
+        NSInteger count = redof.count;
+        if (count>0) {
+            layer->redo_ind = (int)count-1;
+        }
+        else {
+            
+        }
+        if (count>9) {
+            NSValue *value = redof.lastObject;
+            layer->redoFragment_9 = (CZPaintingFragment*)value.pointerValue;
+            [redof removeLastObject];
+        }
+        if (count>8) {
+            NSValue *value = redof.lastObject;
+            layer->redoFragment_8 = (CZPaintingFragment*)value.pointerValue;
+            [redof removeLastObject];
+        }
+        if (count>7) {
+            NSValue *value = redof.lastObject;
+            layer->redoFragment_7 = (CZPaintingFragment*)value.pointerValue;
+            [redof removeLastObject];
+        }
+        if (count>6) {
+            NSValue *value = redof.lastObject;
+            layer->redoFragment_6 = (CZPaintingFragment*)value.pointerValue;
+            [redof removeLastObject];
+        }
+        if (count>5) {
+            NSValue *value = redof.lastObject;
+            layer->redoFragment_5 = (CZPaintingFragment*)value.pointerValue;
+            [redof removeLastObject];
+        }
+        if (count>4) {
+            NSValue *value = redof.lastObject;
+            layer->redoFragment_4 = (CZPaintingFragment*)value.pointerValue;
+            [redof removeLastObject];
+        }
+        if (count>3) {
+            NSValue *value = redof.lastObject;
+            layer->redoFragment_3 = (CZPaintingFragment*)value.pointerValue;
+            [redof removeLastObject];
+        }
+        if (count>2) {
+            NSValue *value = redof.lastObject;
+            layer->redoFragment_2 = (CZPaintingFragment*)value.pointerValue;
+            [redof removeLastObject];
+        }
+        if (count>1) {
+            NSValue *value = redof.lastObject;
+            layer->redoFragment_1 = (CZPaintingFragment*)value.pointerValue;
+            [redof removeLastObject];
+        }
+        if (count>0) {
+            NSValue *value = redof.lastObject;
+            layer->redoFragment = (CZPaintingFragment*)value.pointerValue;
+            [redof removeLastObject];
+        }
+        
+        
+        // 此处需要一个方法，对redo新建的layer里面的所有fragment进行复制
+    }
     BOOL result = layer->redoAction();
     canvas->drawView();
     return result;

@@ -400,7 +400,7 @@ bool CZPainting::deleteActiveLayer()
     for(vector<CZLayer*>::iterator itr=layers.begin(); itr!=layers.end(); itr++)
         if(*itr == layer)
         {
-            delete lastDeletedLayer;
+//            delete lastDeletedLayer;
             lastDeletedLayer = layer;
             layers.erase(itr);
             break;

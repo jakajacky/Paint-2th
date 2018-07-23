@@ -174,6 +174,10 @@ private:
 public:
 	bool canRedo,canUndo;
 	CZRect modifiedRect;
+    CZPaintingFragment *undoFragment, *undoFragment_1, *undoFragment_2, *undoFragment_3, *undoFragment_4, *undoFragment_5, *undoFragment_6, *undoFragment_7, *undoFragment_8, *undoFragment_9;
+    CZPaintingFragment *redoFragment, *redoFragment_1, *redoFragment_2, *redoFragment_3, *redoFragment_4, *redoFragment_5, *redoFragment_6, *redoFragment_7, *redoFragment_8, *redoFragment_9;
+    int undo_ind;
+    int redo_ind;
 
 private:
 	bool visible;								///< 是否可见
@@ -191,11 +195,7 @@ private:
 	CZSaveStatus isSaved;						///< 图层存储状态
 	CZTexture *myTexture;						///< 自身纹理
 	CZTexture *hueChromaLuma;					///
-	CZPaintingFragment *undoFragment, *undoFragment_1, *undoFragment_2, *undoFragment_3, *undoFragment_4, *undoFragment_5, *undoFragment_6, *undoFragment_7, *undoFragment_8, *undoFragment_9;
-    CZPaintingFragment *redoFragment, *redoFragment_1, *redoFragment_2, *redoFragment_3, *redoFragment_4, *redoFragment_5, *redoFragment_6, *redoFragment_7, *redoFragment_8, *redoFragment_9;
 												///< 撤销和重做的片段
-    int undo_ind;
-    int redo_ind;
     bool didUndo;
     
 	CZGLContext *ptrGLContext;					///< gl上下文

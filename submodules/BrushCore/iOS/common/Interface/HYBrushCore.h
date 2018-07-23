@@ -100,6 +100,11 @@
 - (BOOL) undoPaintingOfLayer:(NSInteger)idx;
 - (BOOL) redoPaintingOfLayer:(NSInteger)idx;
 
+// 2.1 图层redo后，canRedo条件设置
+- (void) restoreUndoFragments;
+@property (assign,nonatomic) BOOL isAllowRedo;
+@property (copy, nonatomic)  NSMutableDictionary *redoFragmentDic;
+@property (copy, nonatomic)  NSMutableDictionary *undoFragmentDic;
 #pragma mark - ！Adjust Brush Stamp
 
 @property (assign,nonatomic) float intentity4ActiveBrush;
