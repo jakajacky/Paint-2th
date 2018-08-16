@@ -1,5 +1,5 @@
 # HYDrawing
-an iOS Drawing App for iPhone based on BrushCore  
+an iOS Drawing App for iPhone  
 
 
 ### Features
